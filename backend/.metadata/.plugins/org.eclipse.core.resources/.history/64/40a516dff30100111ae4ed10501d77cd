@@ -1,0 +1,34 @@
+package com.fd.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.fd.dto.AccountDTO;
+import com.fd.model.Account;
+import com.fd.repository.IAccountRepository;
+
+@Service
+public class AccountService implements IAccountService{
+	
+	@Autowired
+	IAccountRepository accountRepo;
+	
+	public double findBalanceById(Long accountId) {
+		Account account = accountRepo.findById(accountId)
+                .orElseThrow(() -> new RuntimeException("Account not found"));
+		
+		return account.getBalance();
+	}
+	
+	@Override
+	public Account createAccount(AccountDTO accountDTO) {
+				
+        return accountRepo.save(AccountDTO.fromDTOToEntity(accountDTO));
+    
+	}
+	
+	
+	
+	
+
+}

@@ -1,0 +1,37 @@
+package com.fd.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.fd.model.Account;
+import com.fd.model.TransactionLog;
+import com.fd.service.AccountService;
+
+@RestController
+@RequestMapping("/api/v1/accounts")
+public class AccountController {
+	
+	@Autowired
+	AccountService accountService;
+	
+	@GetMapping("{Id}/balance")
+	public Account getBalanceById(@PathVariable int Id) {
+		return AccountService.findBalanceById(Id);
+	}
+	
+	@GetMapping("{Id}/transactions")
+	public List<TransactionLog> findAllTransactions(Long Id){
+		return accountService.getAllTransactions();
+	}
+	
+	@GetMapping("{Id}")
+	public Account getAccountDetailsById(@PathVariable int Id) {
+		return AccountService.findAccountDetailsById(Id);
+	}
+
+}

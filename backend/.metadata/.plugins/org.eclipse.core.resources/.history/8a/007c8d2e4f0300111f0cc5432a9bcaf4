@@ -1,0 +1,98 @@
+package com.fd.model;
+
+import java.time.ZonedDateTime;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+
+@Entity
+@Table(name="account")
+public class Account {
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private long accountId;
+	@Column(name="holderName", nullable=false)
+	private String holderName;
+	@Column(name="balance", nullable=false)
+	private double balance;
+	@Column(name="accountStatus", nullable=false)
+	private AccountStatus accountStatus;
+	@Column(name="version", nullable=false)
+	private int version;
+	@Column(name="lastUpdated", nullable=false)
+	private ZonedDateTime lastUpdated;
+	
+	public Account() {
+		super();
+		
+	}
+		
+	public Account(String holderName, double balance) {
+		this.accountId = 0;
+		this.holderName = holderName;
+		this.balance = balance;
+		this.accountStatus = AccountStatus.ACTIVE;
+		this.version = 0;
+		this.lastUpdated = ZonedDateTime.now();
+		
+	}
+	
+	public long getAccountId() {
+		return this.accountId;
+	}
+	
+	public String getHolderName() {
+		return this.holderName;
+	}
+	
+	public double getBalance() {
+		return this.balance;
+	}
+	
+	public void setBalance(double newBalance) {
+		this.balance = newBalance;
+	}
+	
+	public AccountStatus getAccountStatus() {
+		return this.accountStatus;
+	}
+	
+	public void setAccountStatus(AccountStatus accountStatus) {
+		this.accountStatus = accountStatus;
+	}
+	
+	public double getVersion() {
+		return this.version;
+	}
+	
+	public void setVersion(int newVersion) {
+		this.version = newVersion;
+	}
+	
+	public ZonedDateTime getLastUpdated() {
+		return this.lastUpdated;
+	}
+	
+	public void setLastUpdatedZ(ZonedDateTime lastUpdated) {
+		this.lastUpdated = lastUpdated;
+	}
+	
+	public double debit(double amount) {
+		return this.balance -= amount;
+	}
+	
+	public double credit(double amount) {
+		return this.balance += amount;
+	}
+	
+	public boolean isActive() {
+		return accountStatus == AccountStatus.ACTIVE;
+	}
+	
+}

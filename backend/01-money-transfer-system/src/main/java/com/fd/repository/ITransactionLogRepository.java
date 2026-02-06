@@ -1,0 +1,18 @@
+package com.fd.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import com.fd.model.TransactionLog;
+
+@Repository
+public interface ITransactionLogRepository extends JpaRepository<TransactionLog, Long>{
+	
+	// * operator is not recognized by JPA and hence we need this query to be treated as a native query.
+	@Query(value = "SELECT * FROM transactionlog WHERE transactionlog.from_account_id = :fromAccountId", nativeQuery = true)
+	List<TransactionLog> findTransactionsByAccountId(long fromAccountId);
+	
+}

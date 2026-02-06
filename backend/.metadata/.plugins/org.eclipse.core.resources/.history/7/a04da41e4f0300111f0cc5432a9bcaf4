@@ -1,0 +1,76 @@
+package com.fd.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.fd.dto.TransactionLogDTO;
+import com.fd.exception.AccountNotActiveException;
+import com.fd.exception.AccountNotFoundException;
+import com.fd.exception.InsuffiecientBalanceException;
+import com.fd.model.Account;
+import com.fd.model.TransactionLog;
+import com.fd.model.TransactionStatus;
+import com.fd.repository.IAccountRepository;
+import com.fd.repository.ITransactionLogRepository;
+
+@Service
+public class TransferService implements ITransferService {
+	
+	@Autowired
+	ITransactionLogRepository transactionLogRepo;
+	@Autowired
+	IAccountRepository accountRepo;
+
+	public List<TransactionLog> findAllTransactions(){
+		return transactionLogRepo.findAll();
+	}
+	
+	@Override
+	public List<Account> transactionValidation(TransactionLogDTO transactionLogDTO) 
+			throws AccountNotFoundException, InsuffiecientBalanceException, AccountNotActiveException {
+		
+		Account fromAccount = accountRepo.findById(transactionLogDTO.getFromAccountId())
+				.orElseThrow(() -> new AccountNotFoundException("User Account Not Found"));
+		
+		Account toAccount = accountRepo.findById(transactionLogDTO.getToAccountId())
+				.orElseThrow(() -> new AccountNotFoundException("Receiver Account not found"));
+		
+		if(fromAccount.getBalance() < transactionLogDTO.getAmount()) {
+			throw new InsuffiecientBalanceException("Insufficient Funds");
+		}
+		
+		if(!toAccount.isActive() || !fromAccount.isActive()) {
+			if(toAccount.isActive()==false) {
+				throw new AccountNotActiveException("Receiver Account is not active.");
+			}else {
+				throw new AccountNotActiveException("User Account is not active.");
+			}
+		}
+		
+		List<Account> accounts = new ArrayList<>();
+		accounts.add(fromAccount);
+		accounts.add(toAccount);
+		return accounts;
+	}
+	
+	@Override
+	public TransactionLog executeTransaction(TransactionLogDTO transactionLogDTO, List<Account> accounts) {
+						
+		Account fromAccount = accounts.get(0);
+		Account toAccount = accounts.get(1);
+		//Debit money from user
+		fromAccount.setBalance(fromAccount.debit(transactionLogDTO.getAmount()));
+		//Credit money to receiver
+		toAccount.setBalance(toAccount.credit(transactionLogDTO.getAmount()));
+		TransactionLog transactionLog = TransactionLogDTO.fromDTOToEntity(transactionLogDTO);
+		transactionLog.setStatus(TransactionStatus.SUCCESS);
+			
+		return transactionLogRepo.save(transactionLog);
+
+    
+	}
+
+}

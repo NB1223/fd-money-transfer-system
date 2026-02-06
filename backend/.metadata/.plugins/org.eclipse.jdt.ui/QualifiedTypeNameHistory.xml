@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="com.fd.service.IAccountService"/>
+    <fullyQualifiedTypeName name="com.fd.repository.IAccountRepository"/>
+    <fullyQualifiedTypeName name="com.fd.model.TransactionStatus"/>
+    <fullyQualifiedTypeName name="com.fd.model.AccountStatus"/>
+    <fullyQualifiedTypeName name="com.fd.exception.AccountNotActiveException"/>
+    <fullyQualifiedTypeName name="com.fd.exception.InsuffiecientBalanceException"/>
+    <fullyQualifiedTypeName name="com.fd.exception.AccountNotFoundException"/>
+    <fullyQualifiedTypeName name="com.fd.model.TransactionLog"/>
+    <fullyQualifiedTypeName name="com.fd.dto.TransactionLogDTO"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="com.fd.model.Account"/>
+</qualifiedTypeNameHistroy>

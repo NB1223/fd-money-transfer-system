@@ -1,0 +1,17 @@
+package com.fd.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import com.fd.model.TransactionLog;
+
+@Repository
+public interface ITransactionLogRepository extends JpaRepository<TransactionLog, Long>{
+	
+	@Query(value = "SELECT * FROM transactionlog WHERE transactionlog.from_account_id = :fromAccountId", nativeQuery = true)
+	List<TransactionLog> findTransactionsByAccountId(Long fromAccountId);
+	
+}
