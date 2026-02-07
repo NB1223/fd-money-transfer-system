@@ -2,7 +2,7 @@ package com.fd.service;
 
 import java.util.List;
 
-import com.fd.dto.TransactionLogDTO;
+import com.fd.dto.TransferRequest;
 import com.fd.exception.AccountNotActiveException;
 import com.fd.exception.AccountNotFoundException;
 import com.fd.exception.InsuffiecientBalanceException;
@@ -12,8 +12,8 @@ import com.fd.model.TransactionLog;
 public interface ITransferService {
 	
 	public List<TransactionLog> findAllTransactions();
-	List<Account> transactionValidation(TransactionLogDTO transactionLogDTO) 
+	List<Account> transactionValidation(TransferRequest transferRequest) 
 			throws AccountNotFoundException, InsuffiecientBalanceException, AccountNotActiveException;
-	TransactionLog executeTransaction(TransactionLogDTO transactionLogDTO, List<Account> accounts);
+	TransactionLog executeTransaction(TransferRequest transferRequest, List<Account> accounts);
 
 }

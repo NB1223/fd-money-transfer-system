@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fd.dto.TransactionLogDTO;
+import com.fd.dto.TransferRequest;
 import com.fd.exception.AccountNotActiveException;
 import com.fd.exception.AccountNotFoundException;
 import com.fd.exception.InsuffiecientBalanceException;
@@ -30,10 +30,10 @@ public class TransferController {
 	// http://localhost:9090/api/v1/transfers
 	@Transactional
 	@PostMapping
-	public ResponseEntity<TransactionLog> transferFund(@RequestBody TransactionLogDTO transaction) 
+	public ResponseEntity<TransactionLog> transferFund(@RequestBody TransferRequest transferRequest)
 			throws AccountNotActiveException, InsuffiecientBalanceException, AccountNotFoundException {
-		List<Account> transactionAccounts = transferService.transactionValidation(transaction);
-		return ResponseEntity.ok(transferService.executeTransaction(transaction,transactionAccounts));
+		List<Account> transactionAccounts = transferService.transactionValidation(transferRequest);
+		return ResponseEntity.ok(transferService.executeTransaction(transferRequest,transactionAccounts));
 	}
 	
 	// http://localhost:9090/api/v1/transfers/transactions

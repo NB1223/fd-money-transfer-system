@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fd.dto.AccountDTO;
+import com.fd.dto.AccountResponse;
 import com.fd.exception.AccountNotFoundException;
 import com.fd.model.Account;
 import com.fd.model.TransactionLog;
@@ -45,21 +46,14 @@ public class AccountService implements IAccountService{
 	}
 
 	@Override
-	public Account findAccountDetailsById(long id) throws AccountNotFoundException {
+	public AccountResponse findAccountDetailsById(long id) throws AccountNotFoundException {
 		Account account = accountRepo.findById(id)
                 .orElseThrow(() -> new AccountNotFoundException("User Account not found."));
-		
-		return account;
+						return AccountResponse.fromEntityToDTO(account);
 	}
-
     public List<Account> findAllAccounts() {
-        
 		return accountRepo.findAll();
     }
 
-	
-	
-	
-	
 
 }

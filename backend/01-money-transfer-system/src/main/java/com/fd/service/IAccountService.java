@@ -3,6 +3,7 @@ package com.fd.service;
 import java.util.List;
 
 import com.fd.dto.AccountDTO;
+import com.fd.dto.AccountResponse;
 import com.fd.exception.AccountNotFoundException;
 import com.fd.model.Account;
 import com.fd.model.TransactionLog;
@@ -11,6 +12,6 @@ public interface IAccountService {
 	Account createAccount(AccountDTO accountDTO);
 	double findBalanceById(Long accountId) throws AccountNotFoundException;
 	List<TransactionLog> findAllTransactions(long id) throws AccountNotFoundException;
-	Account findAccountDetailsById(long id) throws AccountNotFoundException;
+	AccountResponse findAccountDetailsById(long id) throws AccountNotFoundException;
 
 }
