@@ -52,6 +52,11 @@ public class AccountService implements IAccountService{
 		return account;
 	}
 
+    public List<Account> findAllAccounts() {
+        
+		return accountRepo.findAll();
+    }
+
 	
 	
 	

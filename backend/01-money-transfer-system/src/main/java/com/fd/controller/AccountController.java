@@ -24,6 +24,13 @@ public class AccountController {
 	
 	@Autowired
 	AccountService accountService;	
+
+	// for testing purposes only
+	// http://localhost:9090/api/v1/accounts/all 
+	@GetMapping("/all")
+	public List<Account> getAllAccounts(){
+		return accountService.findAllAccounts();
+	}
 	
 	// http://localhost:9090/api/v1/accounts/create
 	@Transactional
