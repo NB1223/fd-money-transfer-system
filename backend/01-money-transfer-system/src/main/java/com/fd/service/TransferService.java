@@ -10,6 +10,7 @@ import com.fd.dto.TransferRequest;
 import com.fd.exception.AccountNotActiveException;
 import com.fd.exception.AccountNotFoundException;
 import com.fd.exception.InsuffiecientBalanceException;
+import com.fd.exception.SelfTransferException;
 import com.fd.model.Account;
 import com.fd.model.TransactionLog;
 import com.fd.model.TransactionStatus;
@@ -29,13 +30,11 @@ public class TransferService implements ITransferService {
 	}
 	
 	//TODO:Implement Duplicatetransfer exception - currently handled by model 
-
-	//TODO:Implement Self transfer check
 	
 
 	@Override
 	public List<Account> transactionValidation(TransferRequest transferRequest) 
-			throws AccountNotFoundException, InsuffiecientBalanceException, AccountNotActiveException {
+			throws AccountNotFoundException, InsuffiecientBalanceException, AccountNotActiveException, SelfTransferException {
 		
 		Account fromAccount = accountRepo.findById(transferRequest.getFromAccountId())
 				.orElseThrow(() -> new AccountNotFoundException("User Account Not Found"));
@@ -45,6 +44,10 @@ public class TransferService implements ITransferService {
 		
 		if(fromAccount.getBalance() < transferRequest.getAmount()) {
 			throw new InsuffiecientBalanceException("Insufficient Funds");
+		}
+
+		if (transferRequest.getFromAccountId() == transferRequest.getToAccountId()){
+			throw new SelfTransferException("Self transfer not allowed.");
 		}
 		
 		if(!toAccount.isActive() || !fromAccount.isActive()) {

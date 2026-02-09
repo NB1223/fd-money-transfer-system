@@ -14,6 +14,7 @@ import com.fd.dto.TransferRequest;
 import com.fd.exception.AccountNotActiveException;
 import com.fd.exception.AccountNotFoundException;
 import com.fd.exception.InsuffiecientBalanceException;
+import com.fd.exception.SelfTransferException;
 import com.fd.model.Account;
 import com.fd.model.TransactionLog;
 import com.fd.service.ITransferService;
@@ -31,7 +32,7 @@ public class TransferController {
 	@Transactional
 	@PostMapping
 	public ResponseEntity<TransactionLog> transferFund(@RequestBody TransferRequest transferRequest)
-			throws AccountNotActiveException, InsuffiecientBalanceException, AccountNotFoundException {
+			throws AccountNotActiveException, InsuffiecientBalanceException, AccountNotFoundException, SelfTransferException {
 		List<Account> transactionAccounts = transferService.transactionValidation(transferRequest);
 		return ResponseEntity.ok(transferService.executeTransaction(transferRequest,transactionAccounts));
 	}
