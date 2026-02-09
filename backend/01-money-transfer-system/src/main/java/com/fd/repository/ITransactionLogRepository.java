@@ -2,8 +2,11 @@ package com.fd.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.fd.model.TransactionLog;
@@ -15,4 +18,9 @@ public interface ITransactionLogRepository extends JpaRepository<TransactionLog,
 	@Query(value = "SELECT * FROM transactionlog WHERE transactionlog.from_account_id = :fromAccountId", nativeQuery = true)
 	List<TransactionLog> findTransactionsByAccountId(long fromAccountId);
 	
+	@Query(value = "SELECT * FROM transactionlog WHERE transactionlog.from_account_id = :fromAccountId", nativeQuery = true)
+	Page<TransactionLog> getTransactionsByAccountId(@Param("fromAccountId") long fromAccountId, Pageable pageable);
+	
+	@Query(value = "SELECT * FROM transactionlog", nativeQuery = true)
+	Page<TransactionLog> getAllTransactionsByPage(Pageable pageable);
 }

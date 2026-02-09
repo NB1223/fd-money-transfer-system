@@ -3,6 +3,8 @@ package com.fd.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fd.dto.AccountDTO;
+import com.fd.dto.TransactionLogDTO;
 import com.fd.exception.AccountNotFoundException;
 import com.fd.model.Account;
 import com.fd.model.TransactionLog;
 import com.fd.service.AccountService;
+import com.fd.service.TransferService;
 
 import jakarta.transaction.Transactional;
 
@@ -23,7 +27,10 @@ import jakarta.transaction.Transactional;
 public class AccountController {
 	
 	@Autowired
-	AccountService accountService;	
+	AccountService accountService;
+	
+	@Autowired
+	TransferService transferService;
 	
 	// http://localhost:9090/api/v1/accounts/create
 	@Transactional
@@ -43,6 +50,15 @@ public class AccountController {
 	public List<TransactionLog> getAllTransactions(@PathVariable long id) throws AccountNotFoundException{
 		return accountService.findAllTransactions(id);
 	}
+	
+	// http://localhost:9090/api/v1/accounts/transactions/1
+	@GetMapping("/transactions/{id}")
+	public Page<TransactionLogDTO> getTransactionsByPage(@PathVariable long id, Pageable pageable) throws AccountNotFoundException{
+		return transferService.getTransactionsByPage(id, pageable);
+	}
+	
+	
+	
 	
 	// http://localhost:9090/api/v1/accounts/1
 	@GetMapping("/{id}")

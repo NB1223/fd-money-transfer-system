@@ -15,6 +15,8 @@ import com.fd.model.TransactionLog;
 import com.fd.model.TransactionStatus;
 import com.fd.repository.IAccountRepository;
 import com.fd.repository.ITransactionLogRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Service
 public class TransferService implements ITransferService {
@@ -69,8 +71,18 @@ public class TransferService implements ITransferService {
 		transactionLog.setStatus(TransactionStatus.SUCCESS);
 			
 		return transactionLogRepo.save(transactionLog);
-
-    
+	}
+	@Override
+	public Page<TransactionLogDTO> getTransactionsByPage(long fromAccountID, Pageable pageable) {
+		return transactionLogRepo
+				.getTransactionsByAccountId(fromAccountID, pageable)
+                .map(TransactionLogDTO::fromEntityToDTO);
 	}
 
+	@Override
+	public Page<TransactionLogDTO> findAllTransactionsByPage(Pageable pageable) {
+		return transactionLogRepo
+				.getAllTransactionsByPage(pageable)
+                .map(TransactionLogDTO::fromEntityToDTO);
+	}
 }
