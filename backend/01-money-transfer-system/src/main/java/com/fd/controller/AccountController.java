@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fd.dto.AccountDTO;
-import com.fd.dto.TransactionLogDTO;
+import com.fd.dto.AccountResponse;
 import com.fd.exception.AccountNotFoundException;
 import com.fd.model.Account;
 import com.fd.model.TransactionLog;
@@ -27,10 +27,14 @@ import jakarta.transaction.Transactional;
 public class AccountController {
 	
 	@Autowired
-	AccountService accountService;
-	
-	@Autowired
-	TransferService transferService;
+	AccountService accountService;	
+
+	// for testing purposes only
+	// http://localhost:9090/api/v1/accounts/all 
+	@GetMapping("/all")
+	public List<Account> getAllAccounts(){
+		return accountService.findAllAccounts();
+	}
 	
 	// http://localhost:9090/api/v1/accounts/create
 	@Transactional
@@ -62,7 +66,7 @@ public class AccountController {
 	
 	// http://localhost:9090/api/v1/accounts/1
 	@GetMapping("/{id}")
-	public Account getAccountDetailsById(@PathVariable long id) throws AccountNotFoundException {
+	public AccountResponse getAccountDetailsById(@PathVariable long id) throws AccountNotFoundException {
 		return accountService.findAccountDetailsById(id);
 	}
 

@@ -2,14 +2,29 @@ package com.fd.dto;
 
 import com.fd.model.TransactionLog;
 
-public class TransactionLogDTO {
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
+public class TransferRequest {
 	
-	private Long fromAccountId;
-	private Long toAccountId;
+	 @NotNull(message = "From Account Number is required")
+//    @Pattern(
+//            regexp = "^[0-9]{10}$",
+//            message = "Account number should be 10 digits long"
+//    )
+    private long fromAccountId;
+    @NotNull(message = "To Account Number is required")
+//    @Pattern(
+//            regexp = "^[0-9]{10}$",
+//            message = "Account number should be 10 digits long"
+//    )
+    private long toAccountId;
+    @NotNull(message = "Transfer amount is required")
+    @Min(value = 1, message = "Transfer amount must be greater than 0")
 	private double amount;
 	private String idempotencyKey;
 	
-	public TransactionLogDTO(Long fromAccountId, Long toAccountId, double amount, String idempotencyKey) {
+	public TransferRequest(Long fromAccountId, Long toAccountId, double amount, String idempotencyKey) {
 		super();
 		this.fromAccountId = fromAccountId;
 		this.toAccountId = toAccountId;
@@ -33,7 +48,7 @@ public class TransactionLogDTO {
 		return idempotencyKey;
 	}
 	
-    public static TransactionLog fromDTOToEntity(TransactionLogDTO dto) {
+    public static TransactionLog fromDTOToEntity(TransferRequest dto) {
         if (dto == null) {
             return null;
         }
@@ -42,11 +57,11 @@ public class TransactionLogDTO {
         return transactionLog;
     }
     
-    public static TransactionLogDTO fromEntityToDTO(TransactionLog transactionLog) {
+    public static TransferRequest fromEntityToDTO(TransactionLog transactionLog) {
         if (transactionLog == null) {
             return null;
         }
-        return new TransactionLogDTO(
+        return new TransferRequest(
         		transactionLog.getFromAccountId(),
         		transactionLog.getToAccountId(),
         		transactionLog.getAmount(),

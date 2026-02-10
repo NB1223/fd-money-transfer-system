@@ -40,4 +40,9 @@ public class GlobalExceptionHandler {
         ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+    @ExceptionHandler(SelfTransferException.class)
+    public ResponseEntity<?> globleExcpetionHandler(SelfTransferException selfTransferException, WebRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), selfTransferException.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }

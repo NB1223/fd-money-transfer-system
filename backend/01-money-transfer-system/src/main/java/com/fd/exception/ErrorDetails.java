@@ -7,6 +7,7 @@ public class ErrorDetails {
     private String message;
     private String details;
 
+    //TODO: Add error code to the response look into dto format
     public ErrorDetails(Date timestamp, String message, String details) {
         super();
         this.timestamp = timestamp;
