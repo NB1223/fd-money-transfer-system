@@ -20,7 +20,7 @@ import com.fd.service.AccountService;
 import jakarta.transaction.Transactional;
 
 @RestController
-@RequestMapping("/api/v1/accounts")
+@RequestMapping("/api/v1")
 public class AccountController {
 	
 	@Autowired
@@ -28,32 +28,32 @@ public class AccountController {
 
 	// for testing purposes only
 	// http://localhost:9090/api/v1/accounts/all 
-	@GetMapping("/all")
+	@GetMapping("accounts/all")
 	public List<Account> getAllAccounts(){
 		return accountService.findAllAccounts();
 	}
 	
 	// http://localhost:9090/api/v1/accounts/create
 	@Transactional
-	@PostMapping("/create")
+	@PostMapping("accounts/create")
 	public Account createAccount(@RequestBody AccountDTO account) {
 		return accountService.createAccount(account);
 	}
 	
-	// http://localhost:9090/api/v1/accounts/1/balance
-	@GetMapping("/{id}/balance")
+	// http://localhost:9090/api/v1/account/1/balance
+	@GetMapping("account/{id}/balance")
 	public double getBalanceById(@PathVariable long id) throws AccountNotFoundException {
 		return accountService.findBalanceById(id);
 	}
 	
-	// http://localhost:9090/api/v1/accounts/1/transactions
-	@GetMapping("/{id}/transactions")
+	// http://localhost:9090/api/v1/account/1/transactions
+	@GetMapping("account/{id}/transactions")
 	public List<TransactionLog> getAllTransactions(@PathVariable long id) throws AccountNotFoundException{
 		return accountService.findAllTransactions(id);
 	}
 	
-	// http://localhost:9090/api/v1/accounts/1
-	@GetMapping("/{id}")
+	// http://localhost:9090/api/v1/account/1
+	@GetMapping("account/{id}")
 	public AccountResponse getAccountDetailsById(@PathVariable long id) throws AccountNotFoundException {
 		return accountService.findAccountDetailsById(id);
 	}
