@@ -80,17 +80,12 @@ public class TransferService implements ITransferService {
 			
 		return transactionLogRepo.save(transactionLog);
 	}
-	@Override
-	public Page<TransactionLogDTO> getTransactionsByPage(long fromAccountID, Pageable pageable) {
-		return transactionLogRepo
-				.getTransactionsByAccountId(fromAccountID, pageable)
-                .map(TransactionLogDTO::fromEntityToDTO);
-	}
+	
 
 	@Override
-	public Page<TransactionLogDTO> findAllTransactionsByPage(Pageable pageable) {
+	public Page<TransferRequest> findAllTransactionsByPage(Pageable pageable) {
 		return transactionLogRepo
 				.getAllTransactionsByPage(pageable)
-                .map(TransactionLogDTO::fromEntityToDTO);
+                .map(TransferRequest::fromEntityToDTO);
 	}
 }

@@ -48,7 +48,7 @@ public class TransferController {
 	
 	// http://localhost:9090/api/v1/transfers/alltransactions
 	@GetMapping("/alltransactions")
-	public Page<TransactionLogDTO> getAllTransactionsByPage(Pageable pageable) {
+	public Page<TransferRequest> getAllTransactionsByPage(Pageable pageable) {
 		return transferService.findAllTransactionsByPage(pageable);
 	}
 

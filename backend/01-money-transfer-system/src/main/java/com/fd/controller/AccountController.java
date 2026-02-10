@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fd.dto.AccountDTO;
 import com.fd.dto.AccountResponse;
+import com.fd.dto.TransferRequest;
 import com.fd.exception.AccountNotFoundException;
 import com.fd.model.Account;
 import com.fd.model.TransactionLog;
@@ -57,12 +58,9 @@ public class AccountController {
 	
 	// http://localhost:9090/api/v1/accounts/transactions/1
 	@GetMapping("/transactions/{id}")
-	public Page<TransactionLogDTO> getTransactionsByPage(@PathVariable long id, Pageable pageable) throws AccountNotFoundException{
-		return transferService.getTransactionsByPage(id, pageable);
+	public Page<TransferRequest> getTransactionsByPage(@PathVariable long id, Pageable pageable) throws AccountNotFoundException{
+		return accountService.getTransactionsByPage(id, pageable);
 	}
-	
-	
-	
 	
 	// http://localhost:9090/api/v1/accounts/1
 	@GetMapping("/{id}")
