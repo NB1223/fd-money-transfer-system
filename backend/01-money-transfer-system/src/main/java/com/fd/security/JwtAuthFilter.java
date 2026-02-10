@@ -35,13 +35,17 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             FilterChain filterChain
     ) throws ServletException, IOException {
 
+        System.out.println("JWT filter hit");
         String authHeader = request.getHeader("Authorization");
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            System.out.println("Authorization header : " + authHeader);
             String token = authHeader.substring(7);
+            System.out.println("Token valid : " + jwtUtil.validateToken(token));
             if (jwtUtil.validateToken(token)) {
                 String username = jwtUtil.extractUsername(token);
                 //  LOAD USER FROM DATABASE
+                System.out.println("Username from token: " + username);
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(
