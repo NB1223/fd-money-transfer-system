@@ -43,9 +43,13 @@ public class SecurityConfig {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**", "/api/public/**").permitAll()
-                        .requestMatchers("/api/v1/accounts/all","/api/v1/accounts/create","/api/v1/transfers/**")
+                        .requestMatchers("/api/v1/accounts/all","/api/v1/accounts/create")
                         .hasRole("ADMIN")
-                        .requestMatchers("/api/v1/account/*/balance","/api/v1/account/*/transactions","/api/v1/account/*")
+                        .requestMatchers("/api/v1/account/*/balance",
+                        		"/api/v1/account/*/transactions",
+                        		"/api/v1/account/transactions/*",
+                        		"/api/v1/account/1",
+                        		"/api/v1/transfers/**")
                         .hasAnyRole("USER","ADMIN")
                         .anyRequest().authenticated()
                 )

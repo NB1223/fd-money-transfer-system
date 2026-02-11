@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fd.dto.AuthRequest;
+import com.fd.model.Account;
 import com.fd.model.UserEntity;
+import com.fd.repository.IAccountRepository;
 import com.fd.repository.UserRepository;
 import com.fd.security.JwtUtil;
 
@@ -22,29 +24,37 @@ public class AuthController {
 
     @Autowired
     private final UserRepository userRepository;
+    private final IAccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
 
     public AuthController(UserRepository userRepository,
+                          IAccountRepository accountRepository,
                           PasswordEncoder passwordEncoder,
                           AuthenticationManager authenticationManager,
                           JwtUtil jwtUtil) {
         this.userRepository = userRepository;
+        this.accountRepository = accountRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
     }
 
     @PostMapping("/register")
-    public String register(@RequestBody AuthRequest request) {
+    public long register(@RequestBody AuthRequest request) {
 
         UserEntity user = new UserEntity();
         user.setUsername(request.getUsername());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         userRepository.save(user);
-        return "User registered successfully";
+        Account account = new Account(request.getUsername(), 1000.0); // Initial balance
+        account.setUser(user);
+
+        accountRepository.save(account);
+
+        return account.getAccountId();
     }
 
     @PostMapping("/login")

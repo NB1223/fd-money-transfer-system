@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 
@@ -17,16 +19,25 @@ public class Account {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long accountId;
+
 	@Column(name="holderName", nullable=false)
 	private String holderName;
+	
 	@Column(name="balance", nullable=false)
 	private double balance;
+
 	@Column(name="accountStatus", nullable=false)
 	private AccountStatus accountStatus;
+
 	@Column(name="version", nullable=false)
 	private int version;
+
 	@Column(name="lastUpdated", nullable=false)
 	private ZonedDateTime lastUpdated;
+
+	@OneToOne
+	@JoinColumn(name = "user_id", nullable = false, unique = true)
+	private UserEntity user;
 	
 	public Account() {
 		super();
@@ -94,5 +105,13 @@ public class Account {
 	public boolean isActive() {
 		return accountStatus == AccountStatus.ACTIVE;
 	}
+
+	public UserEntity getUser() {
+		return user;
+	}
+
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
 	
 }

@@ -3,6 +3,7 @@ package com.fd.model;
 import jakarta.persistence.*;
 
 @Entity
+// @Table(name = "fdusers")
 @Table(name = "fdusers")
 public class UserEntity {
 
@@ -17,7 +18,10 @@ public class UserEntity {
     private String password;
 
     @Column(nullable = false)
-    private String role;
+    private String role = "USER";
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Account account;
 
     public Long getId() {
         return id;
@@ -56,5 +60,13 @@ public class UserEntity {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }

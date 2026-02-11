@@ -5,8 +5,8 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>4.0.2</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<version>3.2.1</version>
+		<relativePath />
 	</parent>
 	<groupId>com.fd</groupId>
 	<artifactId>01-money-transfer-system</artifactId>
@@ -40,12 +40,6 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-webmvc-test</artifactId>
-			<scope>test</scope>
 		</dependency>
 		
 		<dependency>
@@ -100,6 +94,14 @@
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
 			<version>0.11.5</version>
+		</dependency>
+		
+		<!-- Source: https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-test</artifactId>
+		    <version>3.2.1</version>
+		    <scope>test</scope>
 		</dependency>
 
 	</dependencies>

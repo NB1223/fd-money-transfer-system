@@ -3,6 +3,8 @@ package com.fd.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fd.dto.AccountDTO;
 import com.fd.dto.AccountResponse;
+import com.fd.dto.TransferRequest;
 import com.fd.exception.AccountNotFoundException;
 import com.fd.model.Account;
 import com.fd.model.TransactionLog;
@@ -50,6 +53,12 @@ public class AccountController {
 	@GetMapping("account/{id}/transactions")
 	public List<TransactionLog> getAllTransactions(@PathVariable long id) throws AccountNotFoundException{
 		return accountService.findAllTransactions(id);
+	}
+	
+	// http://localhost:9090/api/v1/account/transactions/1
+	@GetMapping("account/transactions/{id}")
+	public Page<TransferRequest> getTransactionsByPage(@PathVariable long id, Pageable pageable) throws AccountNotFoundException{
+		return accountService.getTransactionsByPage(id, pageable);
 	}
 	
 	// http://localhost:9090/api/v1/account/1
