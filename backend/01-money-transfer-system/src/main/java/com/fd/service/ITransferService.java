@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.fd.dto.TransferRequest;
-import com.fd.dto.TransferRequest;
+import com.fd.dto.TransferResponse;
 import com.fd.exception.AccountNotActiveException;
 import com.fd.exception.AccountNotFoundException;
 import com.fd.exception.InsuffiecientBalanceException;
@@ -20,7 +20,7 @@ public interface ITransferService {
 	
 	List<Account> transactionValidation(TransferRequest transferRequest) 
 			throws AccountNotFoundException, InsuffiecientBalanceException, AccountNotActiveException, SelfTransferException;
-	TransactionLog executeTransaction(TransferRequest transferRequest, List<Account> accounts);
+	TransferResponse executeTransaction(TransferRequest transferRequest, List<Account> accounts);
 
 	public Page<TransferRequest> findAllTransactionsByPage(Pageable pageable);
 	

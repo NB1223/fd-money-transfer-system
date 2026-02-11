@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fd.dto.TransferRequest;
+import com.fd.dto.TransferResponse;
 import com.fd.exception.AccountNotActiveException;
 import com.fd.exception.AccountNotFoundException;
 import com.fd.exception.InsuffiecientBalanceException;
@@ -67,7 +68,7 @@ public class TransferService implements ITransferService {
 	}
 	
 	@Override
-	public TransactionLog executeTransaction(TransferRequest transferRequest, List<Account> accounts) {
+	public TransferResponse executeTransaction(TransferRequest transferRequest, List<Account> accounts) {
 						
 		Account fromAccount = accounts.get(0);
 		Account toAccount = accounts.get(1);
@@ -76,9 +77,11 @@ public class TransferService implements ITransferService {
 		//Credit money to receiver
 		toAccount.credit(transferRequest.getAmount());
 		TransactionLog transactionLog = TransferRequest.fromDTOToEntity(transferRequest);
+		
 		transactionLog.setStatus(TransactionStatus.SUCCESS);
-			
-		return transactionLogRepo.save(transactionLog);
+		transactionLogRepo.save(transactionLog);
+
+		return TransferResponse.fromEntityToDTO(transactionLog, toAccount.getBalance());
 	}
 	
 
