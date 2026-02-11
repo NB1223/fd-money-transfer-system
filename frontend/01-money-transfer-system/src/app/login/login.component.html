@@ -1,0 +1,52 @@
+<!-- <div class="login">
+    logo
+    <form id="login-form">
+        <h2>Welcome back</h2>
+        <div class="login-group">
+            <label>Username</label>
+            <input type="text" id="username" placeholder="Enter your name" required>
+            <label>Password</label>
+            <input type="password" id="password" placeholder="Enter your password" required>
+        </div>
+        <button class="login-btn" type="submit">Login</button>
+        <div>
+            <a href="#">Forgot password?</a>
+        </div>
+    </form>
+</div> -->
+
+<div class="login-container" style="max-width: 400px;">
+
+  <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+    <h2>Welcome back</h2>
+    <div class="login-form">
+      <label class="form-label">Username</label>
+      <input
+        type="text"
+        class="form-control"
+        name="username"
+        [(ngModel)]="username"
+        required
+      />
+      <label class="form-label">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        name="password"
+        [(ngModel)]="password"
+        required
+      />
+    </div>
+
+    <div *ngIf="error" class="text-danger mb-2">
+      {{ error }}
+    </div>
+
+    <button class="login-btn" [disabled]="loginForm.invalid">
+      Login
+    </button>
+        <div>
+            <a href="#">Forgot password?</a>
+        </div>
+  </form>
+</div>

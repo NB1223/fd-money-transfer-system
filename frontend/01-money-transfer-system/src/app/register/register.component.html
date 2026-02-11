@@ -1,0 +1,50 @@
+<div class="register-container" style="max-width: 400px;">
+  <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+    <h2>Welcome</h2>
+    <div class="register-form">
+      <label class="form-label">Username</label>
+      <input
+        type="text"
+        class="form-control"
+        name="username"
+        [(ngModel)]="username"
+        required
+        #usernameRef="ngModel"
+      />
+      <div *ngIf="usernameRef.invalid && usernameRef.touched">
+        Username is required
+      </div>
+      <label class="form-label">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        name="password"
+        [(ngModel)]="password"
+        required
+        minlength="6"
+        #passwordRef="ngModel"
+      />
+      <div *ngIf="passwordRef.invalid && passwordRef.touched">
+        Password must be at least 6 characters
+      </div>
+      <label class="form-label">Confirm Password</label>
+      <input
+        type="password"
+        class="form-control"
+        name="confirmPassword"
+        [(ngModel)]="confirmPassword"
+        required
+        #confirmPasswordRef="ngModel"
+      />
+      <div *ngIf="passwordMismatch && confirmPasswordRef.touched">
+        Passwords do not match
+      </div>
+    </div>
+    <button class="register-btn" [disabled]="registerForm.invalid || passwordMismatch">
+      Register
+    </button>
+    <div>
+      <a href="#">Already have an account?</a>
+    </div>
+  </form>
+</div>

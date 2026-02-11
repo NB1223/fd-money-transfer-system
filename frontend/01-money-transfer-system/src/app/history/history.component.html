@@ -1,0 +1,25 @@
+<!-- Element Type Details
+Transaction Table Table List of transactions
+Date Column Column Formatted date/time
+Type Column Column DEBIT (red) / CREDIT (green)
+Amount Column Column Formatted currency
+Status Column Column Badge (Success/Failed) -->
+
+
+<div class="history-container">
+    <div class="btn-group">
+    <a class="btn btn-all" href="#" role="button">All</a>
+    <a class="btn btn-sent" href="#" role="button">Sent</a>
+    <a class="btn btn-recieved" href="#" role="button">Recieved</a>
+    </div>
+ <table border="1" width="50%" >
+
+  <tbody>
+    <tr *ngFor="let transaction of transactions">
+      <td>{{ transaction.type }}</td>
+      <td>{{ transaction.name }}<br>{{transaction.date}}</td>
+      <td>{{ transaction.amount }}<br>{{ transaction.status }}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
