@@ -18,8 +18,8 @@ public interface ITransactionLogRepository extends JpaRepository<TransactionLog,
 	@Query(value = "SELECT * FROM transactionlog WHERE transactionlog.from_account_id = :fromAccountId", nativeQuery = true)
 	List<TransactionLog> findTransactionsByAccountId(long fromAccountId);
 	
-	@Query(value = "SELECT * FROM transactionlog WHERE transactionlog.from_account_id = :fromAccountId", nativeQuery = true)
-	Page<TransactionLog> getTransactionsByAccountId(@Param("fromAccountId") long fromAccountId, Pageable pageable);
+	@Query(value = "SELECT * FROM transactionlog WHERE transactionlog.from_account_id = :accountId OR transactionlog.to_account_id = :accountId", nativeQuery = true)
+	Page<TransactionLog> getTransactionsByAccountId(@Param("accountId") long accountId, Pageable pageable);
 	
 	@Query(value = "SELECT * FROM transactionlog", nativeQuery = true)
 	Page<TransactionLog> getAllTransactionsByPage(Pageable pageable);
