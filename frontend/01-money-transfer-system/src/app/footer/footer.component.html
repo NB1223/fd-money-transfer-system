@@ -1,0 +1,40 @@
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-section">
+      <h3>{{ appName }}</h3>
+      <p>Fast, secure money transfers at your fingertips.</p>
+    </div>
+    
+    <div class="footer-section">
+      <h4>Our Team</h4>
+      <ul class="team-list">
+        <li *ngFor="let member of teamMembers">
+          <strong>{{ member.name }}</strong> - {{ member.role }}
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h4>Quick Links</h4>
+      <ul class="links-list">
+        <li><a href="#privacy">Privacy Policy</a></li>
+        <li><a href="#terms">Terms of Service</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+        <li><a href="#security">Security</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h4>Follow Us</h4>
+      <div class="social-links">
+        <a href="#facebook">Facebook</a>
+        <a href="#twitter">Twitter</a>
+        <a href="#linkedin">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; {{ currentYear }} {{ appName }}. All rights reserved.</p>
+  </div>
+</footer>
