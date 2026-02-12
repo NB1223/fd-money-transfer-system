@@ -1,0 +1,104 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+.login-container {
+  height: 100vh;
+  background: #f4f6f9;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+.ngForm {
+  width: 360px;
+  background: #ffffff;
+  padding: 30px 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.ngForm h2 {
+  margin-bottom: 24px;
+  color: #333;
+}
+
+.login-form {
+  text-align: left;
+  margin-bottom: 16px;
+}
+
+.login-form label {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #dcdcdc;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.login-form input:focus {
+  border-color: #1e88e5;
+}
+
+.transfer-btn {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  background: #00be49;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+
+}
+
+.login-btn:hover {
+  background: #1565c0;
+}
+
+.ngForm a {
+  margin-top: 10px;
+  font-size: 10px;
+  color: #1e88e5;
+  text-decoration: none;
+}
+
+.ngForm a:hover {
+  text-decoration: underline;
+}
+
+.balance-card {
+  background: #2196f3;
+  color: #ffffff;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+
+}
+
+.balance-card p {
+  font-size: 14px;
+  opacity: 0.9;
+
+}
+
+.balance-card strong {
+  font-size: 26px;
+  display: block;
+  margin: 6px 0;
+}
