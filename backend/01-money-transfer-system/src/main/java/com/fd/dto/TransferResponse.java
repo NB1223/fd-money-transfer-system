@@ -1,5 +1,7 @@
 package com.fd.dto;
 
+import java.time.LocalDateTime;
+
 import com.fd.model.TransactionLog;
 
 public class TransferResponse {
@@ -7,15 +9,15 @@ public class TransferResponse {
     private long transactionId;
     private long fromAccountId;
     private long toAccountId;
-    private double newBalance;
     private double transferAmount;
+    private LocalDateTime timestamp;
 
-    public TransferResponse(long transactionId, long fromAccountId, long toAccountId, double newBalance, double transferAmount) {
+    public TransferResponse(long transactionId, long fromAccountId, long toAccountId, double transferAmount, LocalDateTime time) {
         this.transactionId = transactionId;
         this.fromAccountId = fromAccountId;
         this.toAccountId = toAccountId;
-        this.newBalance = newBalance;
         this.transferAmount = transferAmount;
+        this.timestamp = time; 
     }
 
     public long getTransactionId() {
@@ -30,15 +32,15 @@ public class TransferResponse {
         return toAccountId;
     }
 
-    public double getNewBalance() {
-        return newBalance;
-    }
-
     public double getTransferAmount() {
         return transferAmount;
     }
 
-    public static TransferResponse fromEntityToDTO(TransactionLog transactionLog, double newBalance) {
+    public LocalDateTime getTimestamp() { 
+        return timestamp; 
+    }   
+
+    public static TransferResponse fromEntityToDTO(TransactionLog transactionLog) {
         if (transactionLog == null) {
             return null;
         }
@@ -47,8 +49,8 @@ public class TransferResponse {
             transactionLog.getTransactionId(),
         		transactionLog.getFromAccountId(),
         		transactionLog.getToAccountId(),
-                newBalance,
-        		transactionLog.getAmount()
+        		transactionLog.getAmount(),
+                transactionLog.getCreatedOn()
 
         );
     }

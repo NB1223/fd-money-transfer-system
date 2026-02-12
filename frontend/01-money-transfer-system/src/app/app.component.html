@@ -1,3 +1,5 @@
-<app-navbar></app-navbar>
+<app-history *ngIf="shouldShowNavbar()"></app-history>
+<app-navbar *ngIf="shouldShowNavbar()"></app-navbar>
 <router-outlet></router-outlet>
-<app-footer></app-footer>
+<app-footer *ngIf="shouldShowNavbar()"></app-footer>
+

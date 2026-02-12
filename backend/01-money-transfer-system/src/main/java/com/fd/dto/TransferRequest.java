@@ -8,16 +8,8 @@ import jakarta.validation.constraints.NotNull;
 public class TransferRequest {
 	
 	 @NotNull(message = "From Account Number is required")
-//    @Pattern(
-//            regexp = "^[0-9]{10}$",
-//            message = "Account number should be 10 digits long"
-//    )
     private long fromAccountId;
     @NotNull(message = "To Account Number is required")
-//    @Pattern(
-//            regexp = "^[0-9]{10}$",
-//            message = "Account number should be 10 digits long"
-//    )
     private long toAccountId;
     @NotNull(message = "Transfer amount is required")
     @Min(value = 1, message = "Transfer amount must be greater than 0")

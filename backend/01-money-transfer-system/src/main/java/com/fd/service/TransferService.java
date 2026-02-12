@@ -81,7 +81,7 @@ public class TransferService implements ITransferService {
 		transactionLog.setStatus(TransactionStatus.SUCCESS);
 		transactionLogRepo.save(transactionLog);
 
-		return TransferResponse.fromEntityToDTO(transactionLog, fromAccount.getBalance());
+		return TransferResponse.fromEntityToDTO(transactionLog);
 	}
 	
 

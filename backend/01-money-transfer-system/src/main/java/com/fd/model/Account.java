@@ -1,6 +1,6 @@
 package com.fd.model;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,7 +33,7 @@ public class Account {
 	private int version;
 
 	@Column(name="lastUpdated", nullable=false)
-	private ZonedDateTime lastUpdated;
+	private LocalDateTime lastUpdated;
 
 	@OneToOne
 	@JoinColumn(name = "user_id", nullable = false, unique = true)
@@ -50,7 +50,7 @@ public class Account {
 		this.balance = balance;
 		this.accountStatus = AccountStatus.ACTIVE;
 		this.version = 0;
-		this.lastUpdated = ZonedDateTime.now();
+		this.lastUpdated = LocalDateTime.now();
 		
 	}
 	
@@ -86,11 +86,11 @@ public class Account {
 		this.version = newVersion;
 	}
 	
-	public ZonedDateTime getLastUpdated() {
+	public LocalDateTime getLastUpdated() {
 		return this.lastUpdated;
 	}
 	
-	public void setLastUpdatedZ(ZonedDateTime lastUpdated) {
+	public void setLastUpdated(LocalDateTime lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
 	

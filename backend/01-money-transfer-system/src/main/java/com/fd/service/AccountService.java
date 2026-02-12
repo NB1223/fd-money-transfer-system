@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.fd.dto.AccountDTO;
 import com.fd.dto.AccountResponse;
 import com.fd.dto.TransferRequest;
+import com.fd.dto.TransferResponse;
 import com.fd.exception.AccountNotFoundException;
 import com.fd.model.Account;
 import com.fd.model.TransactionLog;
@@ -59,10 +60,10 @@ public class AccountService implements IAccountService{
     }
     
     @Override
-	public Page<TransferRequest> getTransactionsByPage(long fromAccountID, Pageable pageable) {
+	public Page<TransferResponse> getTransactionsByPage(long fromAccountID, Pageable pageable) {
 		return transactionLogRepo
 				.getTransactionsByAccountId(fromAccountID, pageable)
-                .map(TransferRequest::fromEntityToDTO);
+                .map(TransferResponse::fromEntityToDTO);
 	}
 
 

@@ -1,6 +1,6 @@
 package com.fd.model;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,7 +29,7 @@ public class TransactionLog {
 	@Column(name="idempotencyKey", nullable=false, unique=true)
 	private String idempotencyKey;
 	@Column(name="createdOn", nullable=false)
-	private ZonedDateTime createdOn;
+	private LocalDateTime createdOn;
 	
 	public TransactionLog() {
 		super();
@@ -43,7 +43,7 @@ public class TransactionLog {
 		this.status = TransactionStatus.FAILED;
 		this.failureReason = "";
 		this.idempotencyKey = idempotencyKey;
-		this.createdOn = ZonedDateTime.now();
+		this.createdOn = LocalDateTime.now();
 	}
 
 
@@ -92,7 +92,7 @@ public class TransactionLog {
 	}
 
 
-	public ZonedDateTime getCreatedOn() {
+	public LocalDateTime getCreatedOn() {
 		return createdOn;
 	}
 	
