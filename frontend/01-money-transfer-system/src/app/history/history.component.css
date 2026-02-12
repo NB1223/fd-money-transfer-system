@@ -15,7 +15,6 @@
 }
 
 table {
-  width: 360px;
   background: #ffffff;
   padding: 30px 20px;
   border-radius: 12px;
@@ -27,7 +26,32 @@ table {
   color:red;
 }
 
-.credit{
+.credit {
   color:green;
 }
+
+.btn-group {
+  display: inline-flex;
+  justify-content: start;
+}
+
+a {
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  background: #1e88e5;
+  color: white;
+  text-align: center;
+  width: 90px;
+  height: 40px;
+  border-radius: 15px;
+  padding: 5px;
+}
+
+a:hover {
+  background-color: rgb(36, 105, 194);
+}
+
 
