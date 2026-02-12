@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -6,19 +8,33 @@ import { Injectable } from '@angular/core';
 export class AuthService {
 
   private loggedIn = false;
+  private readonly apiUrl = 'http://localhost:9090/api/auth';
+
+  constructor(private http: HttpClient) {}
   //const jwt = require('jsonwebtoken');
 
-  login(username: string, password: string): boolean {
-    if (username === 'admin' && password === 'admin') {
-      this.loggedIn = true;
-      return true;
-    }
-    this.loggedIn = false;
-    return false;
+   register(username: string, password: string): Observable<number> {
+    const payload = { username, password };
+    return this.http.post<number>(`${this.apiUrl}/register`, payload);
+  }
+
+   login(username: string, password: string): Observable<{ token: string }> {
+    const payload = { username, password };
+    return this.http.post<{ token: string }>(`${this.apiUrl}/login`, payload);
+  }
+
+  storeSession(token: string, userId: string): void {
+    sessionStorage.setItem('jwt', token);
+    sessionStorage.setItem('userId', userId);
+  }
+
+  getToken(): string | null {
+    return sessionStorage.getItem('jwt');
   }
 
   logout() {
     this.loggedIn = false;
+    sessionStorage.clear();
     console.log('User logged out');
   }
 
@@ -26,8 +42,5 @@ export class AuthService {
     return this.loggedIn;
   }
 
-  getToken(){
-    
-    
-  }
+ 
 }

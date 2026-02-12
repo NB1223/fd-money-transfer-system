@@ -9,7 +9,7 @@ import { TransferComponent } from './transfer/transfer.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, LoginComponent, DashboardComponent, TransferComponent, HistoryComponent, RegisterComponent],
+  imports: [ LoginComponent, DashboardComponent, TransferComponent, HistoryComponent, RegisterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
