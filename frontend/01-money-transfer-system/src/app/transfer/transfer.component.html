@@ -7,6 +7,53 @@ Cancel Button Button Return to dashboard
 Money Transfer System 17
 Element Type Details
 Result Message Alert Success/Error message -->
+<h1> Transfer Money</h1>
+<div class="login-container" style="max-width: 400px;">
+<div class="balance-card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Account Balance</h5>
+                <h1 class="card-subtitle mb-2 text-body-secondary">45,500</h1>
+                <p class="card-text">Account xxxxxxxxxxxx</p>
+            </div>
+        </div>
+  <form #transferForm="ngForm" (ngSubmit)="onSubmit()">
+    <div class="login-form">
+      <label class="form-label">To Account Number</label>
+      <input
+        type="number"
+        class="form-control"
+        name="AccountNumber"
+        [(ngModel)]="accNo"
+        required
+      />
+      <label class="form-label">Amount</label>
+      <input
+        type="number"
+        class="form-control"
+        name="Amount"
+        [(ngModel)]="amount"
+        required
+      />
+
+      <label class="form-label">Remarks</label>
+      <input
+        type="text"
+        class="form-control"
+        name="remarks"
+        [(ngModel)]="remarks"
+        required
+      />
+    </div>
+
+    <div *ngIf="error" class="text-danger mb-2">
+      {{ error }}
+    </div>
+
+    <button class="transfer-btn" [disabled]="transferForm.invalid">
+      Transfer Now
+    </button>
+  </form>
+</div>
 
 
 
