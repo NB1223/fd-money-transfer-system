@@ -3,6 +3,7 @@ package com.fd.controller;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fd.dto.AuthRequest;
+import com.fd.exception.DuplicateUsernameException;
 import com.fd.model.Account;
 import com.fd.model.UserEntity;
 import com.fd.repository.IAccountRepository;
@@ -44,17 +46,36 @@ public class AuthController {
     @PostMapping("/register")
     public long register(@RequestBody AuthRequest request) {
 
-        UserEntity user = new UserEntity();
-        user.setUsername(request.getUsername());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        // UserEntity user = new UserEntity();
+        // user.setUsername(request.getUsername());
+        // user.setPassword(passwordEncoder.encode(request.getPassword()));
 
-        userRepository.save(user);
-        Account account = new Account(request.getUsername(), 1000.0); // Initial balance
-        account.setUser(user);
+        // userRepository.save(user);
+        // Account account = new Account(request.getUsername(), 1000.0); // Initial balance
+        // account.setUser(user);
 
-        accountRepository.save(account);
+        // accountRepository.save(account);
 
-        return account.getAccountId();
+        // return account.getAccountId();
+         try {
+            UserEntity user = new UserEntity();
+            user.setUsername(request.getUsername());
+            user.setPassword(passwordEncoder.encode(request.getPassword()));
+
+            userRepository.save(user);
+            Account account = new Account(request.getUsername(), 1000.0); // Initial balance
+            account.setUser(user);
+
+            accountRepository.save(account);
+
+            return account.getAccountId();
+        } catch (DataIntegrityViolationException e) {
+            // Check if the error is related to duplicate username
+            if (e.getMessage().contains("Duplicate") || e.getMessage().contains("UK_gf144p6ms89434vl96d7xiwwh")) {
+                throw new DuplicateUsernameException("Username already exists. Please choose a different username.");
+            }
+            throw e;
+        }
     }
 
     @PostMapping("/login")

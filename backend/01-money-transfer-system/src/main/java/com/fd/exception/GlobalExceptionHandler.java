@@ -45,4 +45,9 @@ public class GlobalExceptionHandler {
         ErrorDetails errorDetails = new ErrorDetails(new Date(), selfTransferException.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+     @ExceptionHandler(DuplicateUsernameException.class)
+    public ResponseEntity<?> duplicateUsernameException(DuplicateUsernameException duplicateUsername, WebRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), duplicateUsername.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
 }

@@ -1,6 +1,12 @@
 <div class="register-container" style="max-width: 400px;">
   <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
     <h2>Welcome</h2>
+
+    <!-- Error message display -->
+    <div *ngIf="errorMessage" class="error-message" style="color: red; margin-bottom: 15px; padding: 10px; background-color: #ffebee; border-radius: 4px;">
+      {{ errorMessage }}
+    </div>
+    
     <div class="register-form">
       <label class="form-label">Username</label>
       <input

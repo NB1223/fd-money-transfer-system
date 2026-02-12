@@ -17,6 +17,7 @@ export class RegisterComponent {
   password = '';
   confirmPassword = '';
   userId: number | null = null;
+  errorMessage: string = '';
 
   constructor(private authService: AuthService) {}
 
@@ -30,6 +31,7 @@ export class RegisterComponent {
       return;
     }
 
+    this.errorMessage = ''; // Clear previous errors
     this.authService.register(this.username, this.password).subscribe({
       next: (id) => {
         this.userId = id;
@@ -37,13 +39,18 @@ export class RegisterComponent {
       },
       error: (err) => {
         console.error(err);
-        alert('Registration failed');
+        
+        // Check for duplicate username error
+        if (err.status === 400 || (err.error && err.error.message && err.error.message.includes('Duplicate'))) {
+          this.errorMessage = 'Username already exists. Please choose a different username.';
+          // alert('Username already exists. Please choose a different username.');
+        } else {
+          this.errorMessage = 'Registration failed. Please try again.';
+          alert('Registration failed. Please try again.');
+        }
       }
     });
 
-    alert('Registered Successfully');
   }
-
-
 
 }
