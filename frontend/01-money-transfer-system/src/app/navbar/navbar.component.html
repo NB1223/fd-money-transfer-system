@@ -1,0 +1,13 @@
+<nav class="navbar">
+  <div class="navbar-logo">
+    <h2>MoneyFlow</h2>
+  </div>
+  <ul class="nav-menu">
+    <li class="nav-item" *ngFor="let item of navItems">
+      <a class="nav-link" [routerLink]="item.path">{{ item.name }}</a>
+    </li>
+    <li class="nav-item">
+      <button class="logout-btn">Logout</button>
+    </li>
+  </ul>
+</nav>
