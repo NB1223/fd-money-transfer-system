@@ -5,11 +5,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HistoryComponent } from './history/history.component';
 import { RegisterComponent } from './register/register.component';
 import { TransferComponent } from './transfer/transfer.component';
+import { HomeComponent } from './home/home.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, LoginComponent, DashboardComponent, TransferComponent, HistoryComponent, RegisterComponent],
+  imports: [RouterOutlet, LoginComponent, DashboardComponent, HomeComponent, TransferComponent, HistoryComponent, RegisterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

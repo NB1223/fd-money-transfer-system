@@ -5,16 +5,26 @@
     font-family: "Segoe UI", Roboto, Arial, sans-serif;
 }
 
-.login-container {
-  height: 100vh;
-  background: #f4f6f9;
+.white-card{
+  width: 525px;
+  height: 350px;
+  background: rgb(255, 255, 255);
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 10%;
+}
+
+.login-container {
+  height: 100vh;
+  background: linear-gradient(135deg, #88a7e4, #1e88e5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .ngForm {
-  width: 360px;
   background: #ffffff;
   padding: 30px 20px;
   border-radius: 12px;
@@ -80,4 +90,8 @@ login-form {
 
 .ngForm a:hover {
   text-decoration: underline;
+}
+
+.form-label,.form-control{
+  padding: 10px;
 }
