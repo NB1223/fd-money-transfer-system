@@ -22,14 +22,18 @@ export class LoginComponent {
     private router: Router
   ){}
 
-  onSubmit(): void {
-    const success = this.authService.login(this.username, this.password);
-
-    if (success) {
-      this.router.navigate(['/products']);
-    } else {
-      this.error = 'Invalid username or password';
-    }
+    onSubmit(): void {
+    this.authService.login(this.username, this.password).subscribe({
+      next: (response) => {
+        this.authService.storeSession(response.token, this.username);
+        alert('Login successful');
+        this.router.navigate(['/dashboard']);
+      },
+      error: (err) => {
+        console.error(err);
+        this.error = 'Invalid username or password';
+      }
+    });
   }
   
 }
