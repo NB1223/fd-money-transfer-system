@@ -13,5 +13,9 @@ export const routes: Routes = [
      { path: 'register', component: RegisterComponent },
      { path: 'dashboard', component: DashboardComponent },
      { path: 'transfer', component: TransferComponent },
+     { path: 'history', component: HistoryComponent },
+     { path: 'register', component: RegisterComponent },
+     { path: 'dashboard', component: DashboardComponent },
+     { path: 'transfer', component: TransferComponent },
      { path: 'history', component: HistoryComponent }
 ];
