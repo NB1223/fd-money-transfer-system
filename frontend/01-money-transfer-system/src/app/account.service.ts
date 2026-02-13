@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -11,6 +11,15 @@ export class AccountService {
   constructor(private http: HttpClient) {}
 
   getTransactionsByPage(accountId: number, page: number, size: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/${accountId}?page=${page}&size=${size}`);
+    const token = sessionStorage.getItem('jwt'); // Retrieve the JWT token from sessionStorage
+
+    // Set the Authorization header with the Bearer token
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+
+    // Make the HTTP GET request with the headers
+    return this.http.get<any>(`${this.baseUrl}/${accountId}?page=${page}&size=${size}`, { headers });
   }
 }

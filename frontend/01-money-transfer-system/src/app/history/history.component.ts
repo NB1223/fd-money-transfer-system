@@ -13,7 +13,7 @@ export class HistoryComponent {
 
   transferHistory: any[] = [];
   currentPage: number = 0; // Start with the first page
-  pageSize: number = 5; // Number of transactions per page
+  pageSize: number = 2; // Number of transactions per page
   totalPages: number = 0;
 
   constructor(private accountService: AccountService) {}

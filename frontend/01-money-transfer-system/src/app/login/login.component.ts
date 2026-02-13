@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-  username= '';
+  username = '';
   password = '';
   error = '';
 

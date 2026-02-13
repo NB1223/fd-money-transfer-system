@@ -1,59 +1,65 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Segoe UI", Roboto, Arial, sans-serif;
-}
-
 .history-container {
-  height: 100vh;
-  background: linear-gradient(135deg, #88a7e4, #1e88e5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
+.history-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
 
-table {
-  background: #ffffff;
-  padding: 30px 20px;
-  border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+  font-size: 16px;
+}
+
+.history-table th,
+.history-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
   text-align: center;
 }
 
+.history-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.history-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.history-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Add styles for Credit and Debit labels */
+.credit {
+  color: green;
+  font-weight: bold;
+}
 
 .debit {
-  color:red;
+  color: red;
+  font-weight: bold;
 }
 
-.credit {
-  color:green;
-}
-
-.btn-group {
-  display: inline-flex;
-  justify-content: start;
-}
-
-a {
-  margin: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
-  background: #1e88e5;
-  color: white;
+.pagination-controls {
+  margin-top: 20px;
   text-align: center;
-  width: 90px;
-  height: 40px;
-  border-radius: 15px;
-  padding: 5px;
 }
 
-a:hover {
-  background-color: rgb(36, 105, 194);
+.pagination-controls button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
 }
 
-
+.pagination-controls button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}

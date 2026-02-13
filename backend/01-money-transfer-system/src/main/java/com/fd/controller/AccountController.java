@@ -58,6 +58,7 @@ public class AccountController {
 	// http://localhost:9090/api/v1/account/transactions/1
 	@GetMapping("account/transactions/{id}")
 	public Page<TransferResponse> getTransactionsByPage(@PathVariable long id, Pageable pageable) throws AccountNotFoundException{
+		System.out.println("CONTROLLER HIT");
 		return accountService.getTransactionsByPage(id, pageable);
 	}
 	

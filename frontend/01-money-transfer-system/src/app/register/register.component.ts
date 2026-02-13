@@ -16,7 +16,7 @@ export class RegisterComponent {
   username = '';
   password = '';
   confirmPassword = '';
-  userId: number | null = null;
+  userId: number = 0;
   errorMessage: string = '';
 
   constructor(private authService: AuthService) {}
