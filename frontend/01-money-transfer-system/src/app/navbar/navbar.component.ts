@@ -23,7 +23,7 @@ export class NavbarComponent {
     }
 
   navItems = [
-    { name: 'Dashboard', path: '/dashboard' },
+    { name: 'Profile', path: '/dashboard' },
     { name: 'Transfer', path: '/transfer' },
     { name: 'History', path: '/history' }
   ];

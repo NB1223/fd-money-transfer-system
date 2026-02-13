@@ -14,7 +14,7 @@ Result Message Alert Success/Error message -->
         <div class="balance-card" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">Account Balance</h5>
-                <h1 class="card-subtitle mb-2 text-body-secondary">{{balance}}</h1>
+                <h1 class="card-subtitle mb-2 text-body-secondary">{{balance |currency}}</h1>
                 <p class="card-text">Account {{ fromAccountId }}</p>
             </div>
         </div>
@@ -22,6 +22,7 @@ Result Message Alert Success/Error message -->
           <div class="login-form">
             <label class="form-label">To Account Number</label>
             <input
+              placeholder="Account number of receiver"
               type="number"
               class="form-control"
               name="AccountNumber"
@@ -35,6 +36,7 @@ Result Message Alert Success/Error message -->
               name="Amount"
               [(ngModel)]="amount"
               required
+              placeholder="Amount to transfer"
             />
 
             <label class="form-label">Remarks</label>
@@ -43,7 +45,7 @@ Result Message Alert Success/Error message -->
               class="form-control"
               name="remarks"
               [(ngModel)]="remarks"
-              required
+              placeholder="Optional Remarks"
             />
           </div>
 

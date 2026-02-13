@@ -18,7 +18,7 @@ export class TransferComponent implements OnInit {
   fromAccountId = 0;
   accNo = 0;
   amount = 0;
-  remarks = '';
+  remarks: string | null = '';
   balance: number = 0;
 
   constructor(

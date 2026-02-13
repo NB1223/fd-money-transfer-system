@@ -64,7 +64,7 @@ public class AuthController {
             user.setPassword(passwordEncoder.encode(request.getPassword()));
 
             userRepository.save(user);
-            Account account = new Account(request.getUsername(), 1000.0); // Initial balance
+            Account account = new Account(request.getUsername(), 5000.0); // Initial balance
             account.setUser(user);
 
             accountRepository.save(account);

@@ -5,28 +5,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     <div class="dashboard-container">
         <!-- <h2>Good Morning, <strong>{{holderName}}</strong></h2> -->
         <div class="whitecard">
-         <h3>Good Morning, <strong>{{userName}}</strong></h3>
+         <h3>Good Morning, <strong>{{userName | titlecase}}</strong></h3>
         <div class="balance-card" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">Account Balance</h5>
-                <h1 class="card-subtitle mb-2 text-body-secondary">{{accountBalance}}</h1>
+                <h1 class="card-subtitle mb-2 text-body-secondary">{{accountBalance |currency}}</h1>
                 <p class="card-text">Account ID: {{accountId}}</p>
             </div>
         </div>
         
-        <div class="actions">
-            <div class="action-box" routerLink="/transfer">
-                    <i class="fa-solid fa-money-bill-transfer fa-xl" style="color: #00b840;"></i>
-                                   <br>Transfer</div>
-            <div class="action-box" routerLink="/history">
-                <i class="fa-solid fa-receipt fa-lg"></i><br>History</div>
-            <div class="action-box" routerLink="/profile">
-                <i class="fa-regular fa-user" style="color: #065c9d;"></i><br>
-                Profile</div>
-            <div class="action-box" routerLink="/login">
-                <i class="fa-solid fa-arrow-right-from-bracket fa-lg" style="color: #d93636;"></i>
-                <br><i class="fa-solid fa-arrow-right-from-bracket fa-lg" style="color: #d93636;"></i>Logout</div>
-        </div>
+        
         </div>
     </div>
    
