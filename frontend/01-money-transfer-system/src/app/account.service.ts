@@ -22,4 +22,15 @@ export class AccountService {
     // Make the HTTP GET request with the headers
     return this.http.get<any>(`${this.baseUrl}/transactions/${accountId}?page=${page}&size=${size}`, { headers });
   }
+
+  getAccountBalance(accountId: number): Observable<{balance: any}> {
+    console.log("HIT IN SERVICE")
+      const token = sessionStorage.getItem('jwt');
+     const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+    console.log(`${this.baseUrl}/${accountId}/balance`);
+    return this.http.get<{balance: any}>(`${this.baseUrl}/${accountId}/balance`,{headers});
+  }
 }
