@@ -25,7 +25,7 @@ export class LoginComponent {
     onSubmit(): void {
     this.authService.login(this.username, this.password).subscribe({
       next: (response) => {
-        this.authService.storeSession(response.token, this.username);
+        this.authService.storeSession(response.accountId, response.username, response.token);
         alert('Login successful');
         this.router.navigate(['/dashboard']);
       },

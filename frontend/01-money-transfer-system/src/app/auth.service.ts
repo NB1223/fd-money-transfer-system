@@ -18,18 +18,28 @@ export class AuthService {
     return this.http.post<number>(`${this.apiUrl}/register`, payload);
   }
 
-   login(username: string, password: string): Observable<{ token: string }> {
+   login(username: string, password: string): Observable<{ accountId: number; username: string; token: string }> {
     const payload = { username, password };
-    return this.http.post<{ token: string }>(`${this.apiUrl}/login`, payload);
+    return this.http.post<{ accountId: number; username: string; token: string }>(`${this.apiUrl}/login`, payload);
   }
 
-  storeSession(token: string, userId: string): void {
+  storeSession(accountId: number, username: string, token: string): void {
     sessionStorage.setItem('jwt', token);
-    sessionStorage.setItem('userId', userId);
+    sessionStorage.setItem('userId', accountId.toString());
+    sessionStorage.setItem('username', username);
+    this.loggedIn = true;
   }
 
   getToken(): string | null {
     return sessionStorage.getItem('jwt');
+  }
+
+  getUserId(): string | null {
+    return sessionStorage.getItem('userId');
+  }
+
+  getUsername(): string | null {
+    return sessionStorage.getItem('username');
   }
 
   logout() {

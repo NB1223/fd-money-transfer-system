@@ -19,7 +19,7 @@ export class HistoryComponent {
   constructor(private accountService: AccountService) {}
 
   ngOnInit(): void {
-    this.fetchTransferHistory(1, this.currentPage, this.pageSize); // Replace 1 with the actual account ID
+    this.fetchTransferHistory(Number(sessionStorage.getItem('userId')), this.currentPage, this.pageSize); // Replace 1 with the actual account ID
   }
 
   fetchTransferHistory(accountId: number, page: number, size: number): void {

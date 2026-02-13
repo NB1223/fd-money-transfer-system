@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fd.dto.AuthRequest;
+import com.fd.dto.LoginResponseDTO;
 import com.fd.exception.DuplicateUsernameException;
 import com.fd.model.Account;
 import com.fd.model.UserEntity;
@@ -79,14 +80,18 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public Map<String, String> login(@RequestBody AuthRequest request) {
+    public LoginResponseDTO login(@RequestBody AuthRequest request) {
 
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(), request.getPassword())
         );
 
+        UserEntity user = userRepository.findByUsername(request.getUsername())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
         String token = jwtUtil.generateToken(request.getUsername());
-        return Map.of("token", token);
+        // return Map.of("token", token);
+        return new LoginResponseDTO(user.getId(), request.getUsername(), token);
     }
 }
