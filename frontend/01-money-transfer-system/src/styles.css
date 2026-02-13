@@ -1,8 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
-  --primary-color: #531515; /* Primary color: Blue */
-  --secondary-color: #c7a3a3; /* Secondary color: Purple */
-  --accent-color: #522d2d; /* Accent color: Red */
-  --text-color: #e8c4c4; /* Text color: White */
+  --primary-color: #251553; /* Primary color: Blue */
+  --secondary-color: #a8a3c7; /* Secondary color: Purple */
+  --accent-color: #342d52; /* Accent color: Red */
+  --text-color: #c6c4e8; /* Text color: White */
   --background-color: #f4f4f4; /* Background color: Light Gray */
 }

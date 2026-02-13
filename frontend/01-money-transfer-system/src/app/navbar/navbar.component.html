@@ -7,7 +7,7 @@
       <a class="nav-link" [routerLink]="item.path">{{ item.name }}</a>
     </li>
     <li class="nav-item">
-      <button class="logout-btn">Logout</button>
+      <button class="logout-btn" (click)="logout()">Logout</button>
     </li>
   </ul>
 </nav>
