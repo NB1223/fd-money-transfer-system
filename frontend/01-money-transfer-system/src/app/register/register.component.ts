@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +20,7 @@ export class RegisterComponent {
   userId: number = 0;
   errorMessage: string = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   get passwordMismatch(): boolean {
     return this.password !== this.confirmPassword;
@@ -36,6 +37,8 @@ export class RegisterComponent {
       next: (id) => {
         this.userId = id;
         alert(`User registered successfully with ID: ${id}`);
+        this.router.navigate(['/login']);
+
       },
       error: (err) => {
         console.error(err);

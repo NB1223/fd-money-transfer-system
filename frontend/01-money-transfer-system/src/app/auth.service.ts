@@ -25,7 +25,7 @@ export class AuthService {
 
   storeSession(accountId: number, username: string, token: string): void {
     sessionStorage.setItem('jwt', token);
-    sessionStorage.setItem('userId', accountId.toString());
+    sessionStorage.setItem('accountId', accountId.toString());
     sessionStorage.setItem('username', username);
     this.loggedIn = true;
   }

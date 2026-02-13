@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AccountService {
-  private baseUrl = 'http://localhost:9090/api/v1/account/transactions';
+  private baseUrl = 'http://localhost:9090/api/v1/account';
 
   constructor(private http: HttpClient) {}
 
@@ -18,8 +18,8 @@ export class AccountService {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json'
     });
-
+    console.log(`${this.baseUrl}/transactions/${accountId}?page=${page}&size=${size}`)
     // Make the HTTP GET request with the headers
-    return this.http.get<any>(`${this.baseUrl}/${accountId}?page=${page}&size=${size}`, { headers });
+    return this.http.get<any>(`${this.baseUrl}/transactions/${accountId}?page=${page}&size=${size}`, { headers });
   }
 }

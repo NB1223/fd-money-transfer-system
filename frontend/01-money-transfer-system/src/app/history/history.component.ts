@@ -15,11 +15,12 @@ export class HistoryComponent {
   currentPage: number = 0; // Start with the first page
   pageSize: number = 2; // Number of transactions per page
   totalPages: number = 0;
+  currentAccountId: number = Number(sessionStorage.getItem('accountId'));
 
   constructor(private accountService: AccountService) {}
 
   ngOnInit(): void {
-    this.fetchTransferHistory(Number(sessionStorage.getItem('userId')), this.currentPage, this.pageSize); // Replace 1 with the actual account ID
+    this.fetchTransferHistory(Number(sessionStorage.getItem('accountId')), this.currentPage, this.pageSize); // Replace 1 with the actual account ID
   }
 
   fetchTransferHistory(accountId: number, page: number, size: number): void {

@@ -20,8 +20,8 @@
           <td>{{ transfer.toAccountId }}</td>
           <td>{{ transfer.transferAmount | currency }}</td>
           <td>
-            <span *ngIf="transfer.fromAccountId === 1" class="debit">Debit</span>
-            <span *ngIf="transfer.toAccountId === 1" class="credit">Credit</span>
+            <span *ngIf="transfer.fromAccountId === currentAccountId" class="debit">Debit</span>
+            <span *ngIf="transfer.toAccountId === currentAccountId" class="credit">Credit</span>
           </td>
         </tr>
       </tbody>

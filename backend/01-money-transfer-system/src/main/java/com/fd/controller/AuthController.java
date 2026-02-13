@@ -92,6 +92,6 @@ public class AuthController {
 
         String token = jwtUtil.generateToken(request.getUsername());
         // return Map.of("token", token);
-        return new LoginResponseDTO(user.getId(), request.getUsername(), token);
+        return new LoginResponseDTO(user.getAccount().getAccountId(), request.getUsername(), token);
     }
 }
