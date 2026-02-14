@@ -36,7 +36,7 @@ public class Account {
 	private LocalDateTime lastUpdated;
 
 	@OneToOne
-	@JoinColumn(name = "user_id", nullable = false, unique = true)
+	@JoinColumn(name = "user_id", nullable = true, unique = true)
 	private UserEntity user;
 	
 	public Account() {

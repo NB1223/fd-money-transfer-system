@@ -1,6 +1,7 @@
 package com.fd.controller;
 
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fd.dto.AdminResponse;
 import com.fd.dto.AuthRequest;
 import com.fd.dto.LoginResponseDTO;
 import com.fd.exception.DuplicateUsernameException;
@@ -64,12 +66,43 @@ public class AuthController {
             user.setPassword(passwordEncoder.encode(request.getPassword()));
 
             userRepository.save(user);
-            Account account = new Account(request.getUsername(), 5000.0); // Initial balance
-            account.setUser(user);
+            Optional<Account> existingAccount = accountRepository.findByHolderName(request.getUsername());
+        
+            Account account;
+            if (existingAccount.isPresent()) {
+                // Use existing account and set the user
+                account = existingAccount.get();
+                account.setUser(user);
+            } else {
+                // Create new account if it doesn't exist
+                account = new Account(request.getUsername(), 5000.0); // Initial balance
+                account.setUser(user);
+            }
 
             accountRepository.save(account);
 
             return account.getAccountId();
+        } catch (DataIntegrityViolationException e) {
+            // Check if the error is related to duplicate username
+            if (e.getMessage().contains("Duplicate") || e.getMessage().contains("UK_gf144p6ms89434vl96d7xiwwh")) {
+                throw new DuplicateUsernameException("Username already exists. Please choose a different username.");
+            }
+            throw e;
+        }
+    }
+
+    @PostMapping("admin/register")
+    public long registerAdmin(@RequestBody AuthRequest request) {
+
+        
+         try {
+            UserEntity user = new UserEntity();
+            user.setUsername(request.getUsername());
+            user.setPassword(passwordEncoder.encode(request.getPassword()));
+            user.setRole("ADMIN");
+
+            userRepository.save(user);
+            return user.getId();
         } catch (DataIntegrityViolationException e) {
             // Check if the error is related to duplicate username
             if (e.getMessage().contains("Duplicate") || e.getMessage().contains("UK_gf144p6ms89434vl96d7xiwwh")) {
@@ -94,4 +127,21 @@ public class AuthController {
         // return Map.of("token", token);
         return new LoginResponseDTO(user.getAccount().getAccountId(), request.getUsername(), token);
     }
+
+    @PostMapping("admin/login")
+    public AdminResponse loginAdmin(@RequestBody AuthRequest request) {
+
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getUsername(), request.getPassword())
+        );
+
+        UserEntity user = userRepository.findByUsername(request.getUsername())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        String token = jwtUtil.generateToken(request.getUsername());
+        // return Map.of("token", token);
+        return new AdminResponse(user.getId(), request.getUsername(), token);
+    }
+
 }

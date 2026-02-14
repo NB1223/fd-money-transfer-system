@@ -50,7 +50,7 @@ public class SecurityConfig {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**", "/api/public/**").permitAll()
-                        .requestMatchers("/api/v1/accounts/all","/api/v1/accounts/create")
+                        .requestMatchers("/api/v1/admin/account/all","/api/v1/admin/account/create")
                         .hasRole("ADMIN")
                         .requestMatchers("/api/v1/account/*/balance",
                         		"/api/v1/account/*/transactions",

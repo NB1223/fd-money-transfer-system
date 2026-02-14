@@ -30,18 +30,18 @@ public class AccountController {
 	AccountService accountService;	
 
 	// for testing purposes only
-	// http://localhost:9090/api/v1/accounts/all 
-	@GetMapping("accounts/all")
+	// http://localhost:9090/api/v1/account/all 
+	@GetMapping("admin/account/all")
 	public List<Account> getAllAccounts(){
 		return accountService.findAllAccounts();
 	}
 	
 	// http://localhost:9090/api/v1/accounts/create
-	@Transactional
-	@PostMapping("accounts/create")
-	public Account createAccount(@RequestBody AccountDTO account) {
-		return accountService.createAccount(account);
-	}
+	// @Transactional
+	// @PostMapping("accounts/create")
+	// public Account createAccount(@RequestBody AccountDTO account) {
+	// 	return accountService.createAccount(account);
+	// }
 	
 	// http://localhost:9090/api/v1/account/1/balance
 	@GetMapping("account/{id}/balance")
@@ -66,6 +66,13 @@ public class AccountController {
 	@GetMapping("account/{id}")
 	public AccountResponse getAccountDetailsById(@PathVariable long id) throws AccountNotFoundException {
 		return accountService.findAccountDetailsById(id);
+	}
+
+	// http://localhost:9090/api/v1/admin/account/create
+	@Transactional
+	@PostMapping("admin/account/create")
+	public Account createAccount(@RequestBody AccountDTO account) {
+		return accountService.createAccount(account);
 	}
 
 }
