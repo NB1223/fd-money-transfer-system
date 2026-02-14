@@ -1,0 +1,79 @@
+<div class="register-container">
+  <div class="auth-back">
+    <a routerLink="/home">
+      ← Back to Home
+    </a>
+  </div>
+  <div class="register-card">
+
+    <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" novalidate>
+
+      <div class="register-header">
+        <h2 class="heading-font">Create Account</h2>
+        <p class="muted">Join MTS and start moving money securely</p>
+      </div>
+
+      <div *ngIf="errorMessage" class="error-message global-error">
+        {{ errorMessage }}
+      </div>
+
+      <div class="form-group">
+        <label>Username</label>
+        <input
+          type="text"
+          name="username"
+          [(ngModel)]="username"
+          required
+          #usernameRef="ngModel"
+        />
+        <div class="field-error" *ngIf="usernameRef.invalid && usernameRef.touched">
+          Username is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          required
+          minlength="6"
+          #passwordRef="ngModel"
+        />
+        <div class="field-error" *ngIf="passwordRef.invalid && passwordRef.touched">
+          Password must be at least 6 characters
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Confirm Password</label>
+        <input
+          type="password"
+          name="confirmPassword"
+          [(ngModel)]="confirmPassword"
+          required
+          #confirmPasswordRef="ngModel"
+        />
+        <div class="field-error" *ngIf="passwordMismatch && confirmPasswordRef.touched">
+          Passwords do not match
+        </div>
+      </div>
+
+      <button 
+        class="btn-navy full-width"
+        [disabled]="registerForm.invalid || passwordMismatch">
+        Register
+      </button>
+
+      <div class="bottom-link">
+        <a routerLink="/login">
+          Already have an account? Sign in
+        </a>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

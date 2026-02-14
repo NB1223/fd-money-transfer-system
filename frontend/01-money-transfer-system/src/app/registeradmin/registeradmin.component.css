@@ -1,0 +1,134 @@
+.register-container {
+  min-height: 100vh;
+  background: linear-gradient(
+      135deg,
+      var(--navy-dark),
+      var(--navy-primary)
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.auth-back {
+  position: absolute;
+  top: 30px;
+  left: 40px;
+}
+
+.auth-back a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  opacity: 0.85;
+  transition: all 0.2s ease;
+}
+
+.auth-back a:hover {
+  opacity: 1;
+  transform: translateX(-3px);
+}
+
+.register-card {
+  width: 100%;
+  max-width: 460px;
+  background: white;
+  padding: 50px 45px;
+  border-radius: 16px;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.25);
+  animation: fadeSlideUp 0.6s ease forwards;
+}
+
+.register-header {
+  margin-bottom: 30px;
+}
+
+.register-header h2 {
+  margin-bottom: 6px;
+}
+
+.muted {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #374151;
+}
+
+.form-group input {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  font-size: 0.95rem;
+  transition: all 0.25s ease;
+  outline: none;
+}
+
+.form-group input:focus {
+  border-color: var(--navy-hover);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+
+.global-error {
+  background-color: #fef2f2;
+  color: #dc2626;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+.field-error {
+  color: #dc2626;
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
+
+
+.full-width {
+  width: 100%;
+  margin-top: 10px;
+  height: 45px;
+}
+
+.bottom-link {
+  margin-top: 18px;
+  text-align: center;
+}
+
+.bottom-link a {
+  font-size: 0.9rem;
+  color: var(--navy-primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.bottom-link a:hover {
+  color: var(--navy-hover);
+  text-decoration: underline;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

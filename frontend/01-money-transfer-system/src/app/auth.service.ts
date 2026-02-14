@@ -18,10 +18,21 @@ export class AuthService {
     return this.http.post<number>(`${this.apiUrl}/register`, payload);
   }
 
+  registerAdmin(username: string, password: string): Observable<number> {
+    const payload = { username, password };
+    return this.http.post<number>(`${this.apiUrl}/admin/register`, payload);
+  }
+
    login(username: string, password: string): Observable<{ accountId: number; username: string; token: string }> {
     const payload = { username, password };
     return this.http.post<{ accountId: number; username: string; token: string }>(`${this.apiUrl}/login`, payload);
   }
+
+    loginAdmin(username: string, password: string): Observable<{ userId: number; username: string; token: string }> {
+    const payload = { username, password };
+    return this.http.post<{ userId: number; username: string; token: string }>(`${this.apiUrl}/admin/login`, payload);
+  }
+  
 
   storeSession(accountId: number, username: string, token: string): void {
     sessionStorage.setItem('jwt', token);

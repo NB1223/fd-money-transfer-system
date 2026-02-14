@@ -10,6 +10,7 @@ import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { CreateComponent } from './create/create.component';
 
 @Component({
   selector: 'app-root',
@@ -26,7 +27,8 @@ import { CommonModule } from '@angular/common';
     HistoryComponent, 
     RegisterComponent,
     NavbarComponent,
-    FooterComponent],
+    FooterComponent,
+    CreateComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
