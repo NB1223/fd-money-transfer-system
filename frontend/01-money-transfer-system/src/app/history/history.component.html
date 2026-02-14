@@ -1,42 +1,98 @@
 <div class="history-container">
-  <h2>Transaction History</h2>
 
-  <!-- Check if there are records to display -->
+  <div class="history-header">
+    <div class="header-left">
+      <p class="user-name">
+        Hey {{ userName | titlecase }}, review your recent account activity and transaction details.
+      </p>
+      <h2>Transaction History</h2>
+    </div>
+  </div>
+
+
   <div *ngIf="transferHistory.length > 0; else noRecords">
+
     <table class="history-table">
       <thead>
         <tr>
           <th>Time</th>
-          <th>From</th>
-          <th>To</th>
-          <th>Amount</th>
           <th>Type</th>
+          <th>Amount</th>
+          <th>To / From</th>
         </tr>
       </thead>
+
       <tbody>
         <tr *ngFor="let transfer of transferHistory">
-          <td>{{ transfer.timestamp | date: 'short' }}</td>
-          <td>{{ transfer.fromAccountId }}</td>
-          <td>{{ transfer.toAccountId }}</td>
-          <td>{{ transfer.transferAmount | currency }}</td>
+
           <td>
-            <span *ngIf="transfer.fromAccountId === currentAccountId" class="debit">Debit</span>
-            <span *ngIf="transfer.toAccountId === currentAccountId" class="credit">Credit</span>
+            {{ transfer.timestamp | date:'medium' }}
           </td>
+
+          <td>
+            <span
+              *ngIf="transfer.fromAccountId === currentAccountId"
+              class="debit">
+              Debit
+            </span>
+
+            <span
+              *ngIf="transfer.toAccountId === currentAccountId"
+              class="credit">
+              Credit
+            </span>
+          </td>
+
+          <td
+            [ngClass]="{
+              'debit-amount': transfer.fromAccountId === currentAccountId,
+              'credit-amount': transfer.toAccountId === currentAccountId
+            }">
+
+            {{ transfer.transferAmount | currency }}
+
+          </td>
+
+          <td>
+            <span *ngIf="transfer.fromAccountId === currentAccountId">
+              To: {{ transfer.toAccountId }}
+            </span>
+
+            <span *ngIf="transfer.toAccountId === currentAccountId">
+              From: {{ transfer.fromAccountId }}
+            </span>
+          </td>
+
         </tr>
       </tbody>
     </table>
 
-    <!-- Pagination Controls -->
     <div class="pagination-controls">
-      <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 0">Previous</button>
-      <span>Page {{ currentPage + 1 }} of {{ totalPages }}</span>
-      <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage + 1 >= totalPages">Next</button>
+
+      <button
+        (click)="goToPage(currentPage - 1)"
+        [disabled]="currentPage === 0">
+        Previous
+      </button>
+
+      <div class="page-info">
+        Page {{ currentPage + 1 }} of {{ totalPages }}
+      </div>
+
+      <button
+        (click)="goToPage(currentPage + 1)"
+        [disabled]="currentPage + 1 >= totalPages">
+        Next
+      </button>
+
     </div>
+
   </div>
 
-  <!-- No Records Template -->
   <ng-template #noRecords>
-    <p>No transaction history available.</p>
+    <div class="no-records">
+      No transaction history available.
+    </div>
   </ng-template>
+
 </div>

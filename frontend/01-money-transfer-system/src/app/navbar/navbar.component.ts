@@ -13,6 +13,14 @@ import { AuthService } from '../auth.service';
 })
 export class NavbarComponent {
 
+  currentDate: string = '';
+  currentTime: string = '';
+
+  ngOnInit() {
+    this.updateDateTime();
+    setInterval(() => this.updateDateTime(), 1000);
+  }
+
   constructor(private authService: AuthService, private router: Router) {}
 
     logout(): void {
@@ -22,10 +30,21 @@ export class NavbarComponent {
 
     }
 
-  navItems = [
-    { name: 'Profile', path: '/dashboard' },
-    { name: 'Transfer', path: '/transfer' },
-    { name: 'History', path: '/history' }
-  ];
+
+  updateDateTime() {
+    const now = new Date();
+
+    this.currentDate = now.toLocaleDateString(undefined, {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
+
+    this.currentTime = now.toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  }
+
 
 }

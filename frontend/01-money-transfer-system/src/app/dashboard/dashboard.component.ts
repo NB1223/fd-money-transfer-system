@@ -15,6 +15,17 @@ export class DashboardComponent {
   accountBalance: number = 0;
   accountId: number = 0;
   userName: string | null = '';
+  greeting: string = '';
+  currentDate: string = '';
+  currentTime: string = '';
+  wealthTip: string = '';
+
+  tips: string[] = [
+    "Track your spending weekly to build smarter habits.",
+    "Aim to save at least 20% of your monthly income.",
+    "Diversify investments to reduce financial risk.",
+    "Emergency funds should cover 3–6 months of expenses."
+  ];
 
   constructor(private accountService: AccountService) {}
 
@@ -23,6 +34,17 @@ export class DashboardComponent {
     this.accountId = Number(sessionStorage.getItem('accountId')); // use accountId key
     this.userName = sessionStorage.getItem('username');
     this.fetchAccountBalance(this.accountId);
+    this.setGreeting();
+    this.currentDate = new Date().toLocaleDateString();
+    this.updateTime();
+    setInterval(() => this.updateTime(), 1000);
+    this.wealthTip = this.tips[Math.floor(Math.random() * this.tips.length)];
+
+  }
+
+  updateTime() {
+    const now = new Date();
+    this.currentTime = now.toLocaleTimeString();
   }
 
   fetchAccountBalance(accountId: number): void {
@@ -37,5 +59,19 @@ export class DashboardComponent {
       }
     });
   }
+
+
+  setGreeting() {
+    const hour = new Date().getHours();
+
+    if (hour < 12) {
+      this.greeting = 'Good Morning';
+    } else if (hour < 18) {
+      this.greeting = 'Good Afternoon';
+    } else {
+      this.greeting = 'Good Evening';
+    }
+  }
+
 
 }

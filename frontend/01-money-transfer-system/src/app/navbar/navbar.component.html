@@ -1,13 +1,33 @@
-<nav class="navbar">
-  <div class="navbar-logo">
-    <h2 [routerLink]="'/home'">MoneyFlow</h2>
+<nav class="notch-navbar">
+  <div class="nav-pill">
+
+    <div class="brand" routerLink="/dashboard">
+      MTS
+    </div>
+
+    <div class="nav-datetime">
+      <span>{{ currentDate }}</span>
+      <span class="dot">•</span>
+      <span>{{ currentTime }}</span>
+    </div>
+
+    <div class="nav-links">
+
+      <a routerLink="/transfer">
+         Transfer
+      </a>
+
+      <a routerLink="/history">
+         History
+      </a>
+
+      <a routerLink="/dashboard">
+         Profile
+      </a>
+
+      <a (click)="logout()">Logout</a>
+
+    </div>
+
   </div>
-  <ul class="nav-menu">
-    <li class="nav-item" *ngFor="let item of navItems">
-      <a class="nav-link" [routerLink]="item.path">{{ item.name }}</a>
-    </li>
-    <li class="nav-item">
-      <button class="logout-btn" (click)="logout()">Logout</button>
-    </li>
-  </ul>
 </nav>

@@ -1,57 +1,56 @@
-<!-- <div class="login">
-    logo
-    <form id="login-form">
-        <h2>Welcome back</h2>
-        <div class="login-group">
-            <label>Username</label>
-            <input type="text" id="username" placeholder="Enter your name" required>
-            <label>Password</label>
-            <input type="password" id="password" placeholder="Enter your password" required>
-        </div>
-        <button class="login-btn" type="submit">Login</button>
-        <div>
-            <a href="#">Forgot password?</a>
-        </div>
-    </form>
-</div> -->
-
 <div class="login-container">
+  <div class="auth-back">
+    <a routerLink="/home">
+      ← Back to Home
+    </a>
+  </div>
 
-  <div class="white-card">
 
-  <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
-    <h2>Welcome back</h2>
-    <div class="login-form">
-      <label class="form-label">Username</label>
-      <input
-        type="text"
-        class="form-control"
-        name="username"
-        [(ngModel)]="username"
-        required
-      />
-      <label class="form-label">Password</label>
-      <input
-        type="password"
-        class="form-control"
-        name="password"
-        [(ngModel)]="password"
-        required
-      />
-    </div>
+  <div class="login-card">
 
-    <div *ngIf="error" class="text-danger mb-2">
-      {{ error }}
-    </div>
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
+      
+      <div class="login-header">
+        <h2 class="heading-font">Welcome Back</h2>
+        <p class="muted">Sign in to continue to MTS</p>
+      </div>
 
-    <button class="login-btn" [disabled]="loginForm.invalid">
-      Login
-    </button>
-        <div>
-            <a routerLink="/register" href="#">New Here? Create an account.</a>
-        </div>
-  </form>
+      <div class="form-group">
+        <label>Username</label>
+        <input
+          type="text"
+          name="username"
+          [(ngModel)]="username"
+          required
+        />
+      </div>
 
-    </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          required
+        />
+      </div>
+
+      <div *ngIf="error" class="error-message">
+        {{ error }}
+      </div>
+
+      <button class="btn-navy full-width" [disabled]="loginForm.invalid">
+        Login
+      </button>
+
+      <div class="bottom-link">
+        <a routerLink="/register">
+          New here? Create an account
+        </a>
+      </div>
+
+    </form>
+
+  </div>
 
 </div>

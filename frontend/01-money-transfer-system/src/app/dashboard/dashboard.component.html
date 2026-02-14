@@ -1,21 +1,55 @@
-<link rel="stylesheet" 
+<link rel="stylesheet" class="image"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <div class="dashboard">
-    <div class="dashboard-container">
-        <!-- <h2>Good Morning, <strong>{{holderName}}</strong></h2> -->
-        <div class="whitecard">
-         <h3>Good Morning, <strong>{{userName | titlecase}}</strong></h3>
-        <div class="balance-card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">Account Balance</h5>
-                <h1 class="card-subtitle mb-2 text-body-secondary">{{accountBalance |currency}}</h1>
-                <p class="card-text">Account ID: {{accountId}}</p>
-            </div>
+
+  <div class="dashboard-container">
+
+    <div class="dashboard-left">
+
+      <div class="welcome-section">
+        <h2 class="heading-font">
+          {{ greeting }},
+          <strong>{{ userName | titlecase }}</strong>
+        </h2>
+        <p class="muted">
+          Here’s a snapshot of your account overview.
+        </p>
+      </div>
+
+      <div class="account-card">
+
+        <div class="balance-section">
+          <h5>Account Balance</h5>
+          <h1>{{ accountBalance | currency }}</h1>
         </div>
-        
-        
+
+        <div class="account-info">
+          <span><i class="fa-solid fa-id-card"></i> Account ID:</span>
+          <strong>{{ accountId }}</strong>
         </div>
+
+      </div>
+
+      <div class="extra-info">
+
+        <div class="wealth-tip">
+          <i class="fa-solid fa-lightbulb"></i>
+          <p>{{ wealthTip }}</p>
+        </div>
+
+      </div>
+
+
     </div>
-   
+
+    <div class="dashboard-right">
+      <img 
+        src="https://images.pexels.com/photos/41183/background-british-budget-business-41183.jpeg"
+        alt="Finance Illustration"
+      />
+    </div>
+
+  </div>
+
 </div>

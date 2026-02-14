@@ -20,6 +20,7 @@ export class TransferComponent implements OnInit {
   amount = 0;
   remarks: string | null = '';
   balance: number = 0;
+  username: string = sessionStorage.getItem('username') || 'User';
 
   constructor(
     private transferService: TransferService,

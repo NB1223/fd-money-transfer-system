@@ -1,93 +1,134 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Segoe UI", Roboto, Arial, sans-serif;
-}
-
 .register-container {
-  height: 100vh;
-  background: linear-gradient(135deg, #88a7e4, #1e88e5);
+  min-height: 100vh;
+  background: linear-gradient(
+      135deg,
+      var(--navy-dark),
+      var(--navy-primary)
+  );
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  padding: 20px;
 }
 
-.white-card{
-  width: 525px;
-  height: 350px;
-  background: rgb(255, 255, 255);
+.auth-back {
+  position: absolute;
+  top: 30px;
+  left: 40px;
+}
+
+.auth-back a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  opacity: 0.85;
+  transition: all 0.2s ease;
+}
+
+.auth-back a:hover {
+  opacity: 1;
+  transform: translateX(-3px);
+}
+
+.register-card {
+  width: 100%;
+  max-width: 460px;
+  background: white;
+  padding: 50px 45px;
+  border-radius: 16px;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.25);
+  animation: fadeSlideUp 0.6s ease forwards;
+}
+
+.register-header {
+  margin-bottom: 30px;
+}
+
+.register-header h2 {
+  margin-bottom: 6px;
+}
+
+.muted {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.form-group {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10%;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #374151;
+}
+
+.form-group input {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  font-size: 0.95rem;
+  transition: all 0.25s ease;
+  outline: none;
+}
+
+.form-group input:focus {
+  border-color: var(--navy-hover);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
 
-.ngForm {
-  background: #ffffff;
-  padding: 30px 20px;
-  border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+.global-error {
+  background-color: #fef2f2;
+  color: #dc2626;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+.field-error {
+  color: #dc2626;
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
+
+
+.full-width {
+  width: 100%;
+  margin-top: 10px;
+  height: 45px;
+}
+
+.bottom-link {
+  margin-top: 18px;
   text-align: center;
 }
 
-.ngForm h2 {
-  margin-bottom: 24px;
-  color: #333;
-}
-
-register-form {
-  text-align: left;
-  margin-bottom: 16px;
-}
-
-.register-form label {
-  font-size: 13px;
-  color: #555;
-  margin-bottom: 6px;
-  display: block;
-}
-
-.register-form input {
-  width: 100%;
-  padding: 10px 12px;
-  border-radius: 6px;
-  border: 1px solid #dcdcdc;
-  font-size: 14px;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-.register-form input:focus {
-  border-color: #1e88e5;
-}
-
-.register-btn {
-  width: 100%;
-  margin-top: 10px;
-  padding: 10px;
-  background: #1e88e5;
-  border: none;
-  border-radius: 6px;
-  color: #fff;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-
-}
-
-.register-btn:hover {
-  background: #1565c0;
-}
-
-.ngForm a {
-  margin-top: 10px;
-  font-size: 10px;
-  color: #1e88e5;
+.bottom-link a {
+  font-size: 0.9rem;
+  color: var(--navy-primary);
   text-decoration: none;
+  font-weight: 500;
+  transition: 0.2s;
 }
 
-.ngForm a:hover {
+.bottom-link a:hover {
+  color: var(--navy-hover);
   text-decoration: underline;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

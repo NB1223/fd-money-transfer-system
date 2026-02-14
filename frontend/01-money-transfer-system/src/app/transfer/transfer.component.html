@@ -1,65 +1,85 @@
-<!-- Element Type Details
-From Account Display Current account (readonly)
-To Account Input Destination account ID
-Amount Input Transfer amount
-Transfer Button Button Submit transfer
-Cancel Button Button Return to dashboard
-Money Transfer System 17
-Element Type Details
-Result Message Alert Success/Error message -->
+<div class="transfer-page">
 
-<div class="login-container">
-  <div class="white-card">
-    <h2> Transfer Money</h2>
-        <div class="balance-card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">Account Balance</h5>
-                <h1 class="card-subtitle mb-2 text-body-secondary">{{balance |currency}}</h1>
-                <p class="card-text">Account {{ fromAccountId }}</p>
-            </div>
-        </div>
-        <form #transferForm="ngForm" (ngSubmit)="onSubmit()">
-          <div class="login-form">
-            <label class="form-label">To Account Number</label>
-            <input
-              placeholder="Account number of receiver"
-              type="number"
-              class="form-control"
-              name="AccountNumber"
-              [(ngModel)]="accNo"
-              required
-            />
-            <label class="form-label">Amount</label>
-            <input
-              type="number"
-              class="form-control"
-              name="Amount"
-              [(ngModel)]="amount"
-              required
-              placeholder="Amount to transfer"
-            />
+  <div class="transfer-left">
 
-            <label class="form-label">Remarks</label>
-            <input
-              type="text"
-              class="form-control"
-              name="remarks"
-              [(ngModel)]="remarks"
-              placeholder="Optional Remarks"
-            />
-          </div>
-
-           <div *ngIf="error" class="error-message" style="color: red; margin-bottom: 15px; padding: 10px; background-color: #ffebee; border-radius: 4px;">
-      {{ error }}
+    <div class="user-header">
+      Hey {{ username | titlecase }}, ready to transfer?
     </div>
 
-          <button class="transfer-btn" [disabled]="transferForm.invalid">
-            Transfer Now
-          </button>
-        </form>
+    <div class="white-card">
+      <h2>Transfer Money</h2>
+
+      <div class="balance-card">
+        <div class="card-body">
+          <h5 class="card-title">Account Balance</h5>
+          <h1 class="card-subtitle">
+            {{ balance | currency }}
+          </h1>
+          <p class="card-text">
+            Account {{ fromAccountId }}
+          </p>
+        </div>
       </div>
-    
+
+      <form #transferForm="ngForm" (ngSubmit)="onSubmit()">
+
+        <div class="login-form">
+
+          <label class="form-label">To Account Number</label>
+          <input
+            type="number"
+            class="form-control"
+            name="AccountNumber"
+            [(ngModel)]="accNo"
+            required
+            min="1"
+            placeholder="Account number of receiver"
+            
+          />
+
+          <label class="form-label">Amount</label>
+          <input
+            type="number"
+            class="form-control"
+            name="Amount"
+            [(ngModel)]="amount"
+            required
+            min="1"
+            placeholder="Amount to transfer"
+          />
+
+          <label class="form-label">Remarks</label>
+          <input
+            type="text"
+            class="form-control"
+            name="remarks"
+            [(ngModel)]="remarks"
+            placeholder="Optional Remarks"
+          />
+
+        </div>
+
+        <div *ngIf="error" class="error-message">
+          {{ error }}
+        </div>
+
+        <button
+          class="transfer-btn"
+          [disabled]="transferForm.invalid">
+          Transfer Now
+        </button>
+
+      </form>
+    </div>
+
+  </div>
+
+
+  <div class="transfer-right">
+    <div class="image-overlay">
+      <h1>Secure Transfers</h1>
+      <p>Move your money instantly with confidence.</p>
+    </div>
+  </div>
+
 </div>
-
-
-
