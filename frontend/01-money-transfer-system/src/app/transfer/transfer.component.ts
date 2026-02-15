@@ -66,7 +66,7 @@ export class TransferComponent implements OnInit {
       this.error = 'Cannot transfer to the same account';
       return;
     }
-    const confirmed = confirm(`Confirm transfer of ${this.amount} to account ${this.accNo} from account ${this.fromAccountId}?`);
+    const confirmed = confirm(`Confirm transfer of ${this.amount}$ to account ${this.accNo} from account ${this.elongatedId}?`);
     if (!confirmed) return;
 
     const idempotencyKey = this.generateIdempotencyKey();

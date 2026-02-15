@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { CreateService } from '../create.service';
 import { CommonModule } from '@angular/common';
@@ -16,6 +16,8 @@ export class CreateComponent {
   error = '';
   holderName: string = '';
   balance: number = 0;
+  @Output() accountCreated = new EventEmitter<void>();
+
 
   constructor(
     private createService: CreateService,
@@ -35,6 +37,7 @@ export class CreateComponent {
     }
     this.createService.performTransaction(this.holderName, this.balance).subscribe({
       next: () => {
+        this.accountCreated.emit(); 
         alert('Account created successfully');
       },
       error: (err) => {

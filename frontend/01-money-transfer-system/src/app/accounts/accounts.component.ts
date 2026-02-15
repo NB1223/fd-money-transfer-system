@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AdminService } from '../admin.service';
 import { CommonModule } from '@angular/common';
+import { AccountService } from '../account.service';
 
 @Component({
   selector: 'app-accounts',
@@ -16,7 +17,17 @@ export class AccountsComponent {
 
   ngOnInit(): void {
     this.fetchAccounts(); // Replace 1 with the actual account ID
+    this.loadAccounts();
   }
+
+  loadAccounts() {
+    this.adminService.getAccounts()
+      .subscribe(data => {
+        this.accounts = data;
+      });
+  }
+
+
 
   fetchAccounts(): void {
     console.log("Fetching accounts...");

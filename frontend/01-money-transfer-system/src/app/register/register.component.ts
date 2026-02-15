@@ -36,7 +36,7 @@ export class RegisterComponent {
     this.authService.register(this.username, this.password).subscribe({
       next: (id) => {
         this.userId = id + 600100100;
-        alert(`User registered successfully with ID: ${id}`);
+        alert(`User registered successfully with ID: ${this.userId}`);
         this.router.navigate(['/login']);
 
       },

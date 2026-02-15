@@ -41,7 +41,7 @@ export class HistoryComponent {
   goToPage(page: number): void {
     if (page >= 0 && page < this.totalPages) {
       this.currentPage = page;
-      this.fetchTransferHistory(1, this.currentPage, this.pageSize); // Replace 1 with the actual account ID
+      this.fetchTransferHistory(Number(sessionStorage.getItem('accountId')), this.currentPage, this.pageSize); // Replace 1 with the actual account ID
     }
   }
 }
