@@ -19,7 +19,7 @@ export class TransferService {
       });
 
       const payload = {
-        fromAccountId: Number(fromAccountId),
+        fromAccountId: Number(fromAccountId), // Convert the account ID back to the original value
         toAccountId,
         amount,
         idempotencyKey

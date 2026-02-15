@@ -35,6 +35,7 @@ export class AuthService {
   
 
   storeSession(accountId: number, username: string, token: string): void {
+    sessionStorage.setItem('elongatedId', (accountId + 600100100).toString());
     sessionStorage.setItem('jwt', token);
     sessionStorage.setItem('accountId', accountId.toString());
     sessionStorage.setItem('username', username);

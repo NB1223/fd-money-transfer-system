@@ -16,6 +16,7 @@ import { AccountService } from '../account.service';
 export class TransferComponent implements OnInit {
   error = '';
   fromAccountId = 0;
+  elongatedId = 0;
   accNo: number | null = null;
   amount: number | null = null;
   remarks: string | null = '';
@@ -30,6 +31,7 @@ export class TransferComponent implements OnInit {
 
   ngOnInit(): void {
     this.fromAccountId = Number(sessionStorage.getItem('accountId'));
+    this.elongatedId = Number(sessionStorage.getItem('elongatedId'));
     this.fetchBalance();
   }
 
@@ -68,7 +70,7 @@ export class TransferComponent implements OnInit {
     if (!confirmed) return;
 
     const idempotencyKey = this.generateIdempotencyKey();
-    this.transferService.performTransaction(this.accNo, this.amount, idempotencyKey).subscribe({
+    this.transferService.performTransaction(this.accNo - 600100100, this.amount, idempotencyKey).subscribe({
       next: () => {
         alert('Transfer successful');
         this.router.navigate(['/dashboard']);

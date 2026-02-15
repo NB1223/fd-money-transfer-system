@@ -16,6 +16,7 @@ export class HistoryComponent {
   pageSize: number = 5; // Number of transactions per page
   totalPages: number = 0;
   currentAccountId: number = Number(sessionStorage.getItem('accountId'));
+  elongatedId: number = Number(sessionStorage.getItem('elongatedId'));
   // userName: string = "John Does";
   userName: string = sessionStorage.getItem('username') || '';
 

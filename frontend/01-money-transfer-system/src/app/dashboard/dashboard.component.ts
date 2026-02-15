@@ -14,6 +14,7 @@ export class DashboardComponent {
 
   accountBalance: number = 0;
   accountId: number = 0;
+  elongatedId: number = 0;
   userName: string | null = '';
   greeting: string = '';
   currentDate: string = '';
@@ -32,6 +33,7 @@ export class DashboardComponent {
    ngOnInit(): void {
     console.log("DASHBOARD HIT");
     this.accountId = Number(sessionStorage.getItem('accountId')); // use accountId key
+    this.elongatedId = Number(sessionStorage.getItem('elongatedId')); // use elongatedId key
     this.userName = sessionStorage.getItem('username');
     this.fetchAccountBalance(this.accountId);
     this.setGreeting();
