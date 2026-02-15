@@ -1,0 +1,36 @@
+<div class="accounts-container">
+  <h2>All Accounts</h2>
+
+  <div *ngIf="accounts.length === 0" class="no-data">
+    <p>No accounts found</p>
+  </div>
+
+  <div *ngIf="accounts.length > 0" class="accounts-list">
+    <table class="accounts-table">
+      <thead>
+        <tr>
+          <th>Account ID</th>
+          <th>Holder Name</th>
+          <th>Balance</th>
+          <th>Status</th>
+          <th>Last Updated</th>
+          <th>Username</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let account of accounts">
+          <td>{{ account.accountId }}</td>
+          <td>{{ account.holderName }}</td>
+          <td class="balance">{{ account.balance | currency }}</td>
+          <td>
+            <span [ngClass]="'status-' + account.accountStatus.toLowerCase()">
+              {{ account.accountStatus }}
+            </span>
+          </td>
+          <td>{{ account.lastUpdated | date: 'short' }}</td>
+          <td>{{ account.user?.username || 'N/A' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

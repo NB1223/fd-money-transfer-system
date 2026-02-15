@@ -18,6 +18,7 @@ import com.fd.dto.AuthRequest;
 import com.fd.dto.LoginResponseDTO;
 import com.fd.exception.DuplicateUsernameException;
 import com.fd.model.Account;
+import com.fd.model.AccountStatus;
 import com.fd.model.UserEntity;
 import com.fd.repository.IAccountRepository;
 import com.fd.repository.UserRepository;
@@ -73,10 +74,12 @@ public class AuthController {
                 // Use existing account and set the user
                 account = existingAccount.get();
                 account.setUser(user);
+                account.setAccountStatus(AccountStatus.ACTIVE); // Set account status to ACTIVE
             } else {
                 // Create new account if it doesn't exist
-                account = new Account(request.getUsername(), 5000.0); // Initial balance
-                account.setUser(user);
+                // account = new Account(request.getUsername(), 5000.0); // Initial balance
+                // account.setUser(user);
+                 throw new RuntimeException("Account not created. Please contact admin.");
             }
 
             accountRepository.save(account);

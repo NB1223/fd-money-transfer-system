@@ -1,5 +1,7 @@
 package com.fd.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -20,6 +22,7 @@ public class UserEntity {
     @Column(nullable = false)
     private String role = "USER";
 
+    @JsonManagedReference
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Account account;
 

@@ -47,7 +47,12 @@ export class RegisterComponent {
         if (err.status === 400 || (err.error && err.error.message && err.error.message.includes('Duplicate'))) {
           this.errorMessage = 'Username already exists. Please choose a different username.';
           // alert('Username already exists. Please choose a different username.');
-        } else {
+        } 
+        if (err.error && err.error.message && err.error.message.includes('Account not created')) {
+          this.errorMessage = 'Account has not been created. Please contact Admin.';
+        } 
+          
+        else {
           this.errorMessage = 'Registration failed. Please try again.';
           alert('Registration failed. Please try again.');
         }

@@ -70,18 +70,28 @@ public class TransferService implements ITransferService {
 	@Override
 	public TransferResponse executeTransaction(TransferRequest transferRequest, List<Account> accounts) {
 						
-		Account fromAccount = accounts.get(0);
-		Account toAccount = accounts.get(1);
-		//Debit money from user
-		fromAccount.debit(transferRequest.getAmount());
-		//Credit money to receiver
-		toAccount.credit(transferRequest.getAmount());
-		TransactionLog transactionLog = TransferRequest.fromDTOToEntity(transferRequest);
-		
-		transactionLog.setStatus(TransactionStatus.SUCCESS);
-		transactionLogRepo.save(transactionLog);
+		try {
+        Account fromAccount = accounts.get(0);
+        Account toAccount = accounts.get(1);
+        
+        fromAccount.debit(transferRequest.getAmount());
+        toAccount.credit(transferRequest.getAmount());
+        
+        accountRepo.save(fromAccount);
+        accountRepo.save(toAccount);
+        
+        TransactionLog transactionLog = TransferRequest.fromDTOToEntity(transferRequest);
+        transactionLog.setStatus(TransactionStatus.SUCCESS);
+        transactionLogRepo.save(transactionLog);
 
-		return TransferResponse.fromEntityToDTO(transactionLog);
+        return TransferResponse.fromEntityToDTO(transactionLog);
+    } catch (Exception e) {
+        TransactionLog failedLog = TransferRequest.fromDTOToEntity(transferRequest);
+        failedLog.setStatus(TransactionStatus.FAILED);
+        failedLog.setFailureReason(e.getMessage());
+        transactionLogRepo.save(failedLog);
+        throw e;
+    }
 	}
 	
 

@@ -2,6 +2,8 @@ package com.fd.model;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,6 +37,7 @@ public class Account {
 	@Column(name="lastUpdated", nullable=false)
 	private LocalDateTime lastUpdated;
 
+	@JsonBackReference
 	@OneToOne
 	@JoinColumn(name = "user_id", nullable = true, unique = true)
 	private UserEntity user;
@@ -48,7 +51,7 @@ public class Account {
 		this.accountId = 0;
 		this.holderName = holderName;
 		this.balance = balance;
-		this.accountStatus = AccountStatus.ACTIVE;
+		this.accountStatus = AccountStatus.LOCKED;
 		this.version = 0;
 		this.lastUpdated = LocalDateTime.now();
 		
