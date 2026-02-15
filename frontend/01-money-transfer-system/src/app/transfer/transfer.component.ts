@@ -16,8 +16,8 @@ import { AccountService } from '../account.service';
 export class TransferComponent implements OnInit {
   error = '';
   fromAccountId = 0;
-  accNo = 0;
-  amount = 0;
+  accNo: number | null = null;
+  amount: number | null = null;
   remarks: string | null = '';
   balance: number = 0;
   username: string = sessionStorage.getItem('username') || 'User';

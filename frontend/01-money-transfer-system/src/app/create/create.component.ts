@@ -3,6 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 import { CreateService } from '../create.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-create',
@@ -19,7 +20,13 @@ export class CreateComponent {
   constructor(
     private createService: CreateService,
     private router: Router,
+    private authService: AuthService
   ){}
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/home']);
+  }
 
   onSubmit(): void {
     if (!this.holderName || this.balance <= 0) {
@@ -35,5 +42,7 @@ export class CreateComponent {
         this.error = err?.error?.message || err?.message || 'Account creation failed';
       }
     });
+
   }
+
 }

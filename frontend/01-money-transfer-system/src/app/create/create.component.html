@@ -1,33 +1,98 @@
-<form (submit)="onSubmit(); $event.preventDefault()">
-  <h3>Create Account (Test)</h3>
+<div class="page-container">
 
-  <div *ngIf="error" class="error">{{ error }}</div>
+  <div class="form-card">
+    <h1 class="logo">MTS</h1>
+    <h2>Create Account</h2>
+    <button class="logout-btn" (click)="logout()">
+  Logout
+</button>
 
-  <div>
-    <label for="holderName">Holder Name</label>
-    <input
-      id="holderName"
-      #hn
-      type="text"
-      placeholder="John Doe"
-      (input)="holderName = hn.value"
-    />
+    <p class="subtitle">Secure. Simple. Smart Banking.</p>
+
+    <form #formRef="ngForm" (ngSubmit)="onSubmit()" novalidate>
+
+      <!-- HOLDER NAME -->
+      <div class="form-group">
+        <label for="holderName">Holder Name</label>
+
+        <input
+          id="holderName"
+          name="holderName"
+          [(ngModel)]="holderName"
+          #holderNameRef="ngModel"
+          type="text"
+          maxlength="30"
+          minlength="2"
+          required
+          pattern="^[A-Za-z]+( [A-Za-z]+)?$"
+          placeholder="John Doe"
+        />
+
+
+        <div class="error" *ngIf="holderNameRef.invalid && holderNameRef.touched">
+          <div *ngIf="holderNameRef.errors?.['required']">
+            Holder name is required.
+          </div>
+          <div *ngIf="holderNameRef.errors?.['minlength']">
+            Name must be at least 2 characters.
+          </div>
+          <div *ngIf="holderNameRef.errors?.['maxlength']">
+            Maximum 30 characters allowed.
+          </div>
+          <div *ngIf="holderNameRef.errors?.['pattern']">
+            Only letters allowed and maximum one space (e.g. John Doe).
+          </div>
+        </div>
+      </div>
+
+      <!-- BALANCE -->
+      <div class="form-group">
+        <label for="balance">Initial Balance</label>
+
+        <input
+  id="balance"
+          name="balance"
+          [(ngModel)]="balance"
+          #balanceRef="ngModel"
+          type="number"
+          required
+          min="0.01"
+          step="0.01"
+          placeholder="1000.00"
+          (keydown)="
+            $event.key === 'e' || 
+            $event.key === 'E' || 
+            $event.key === '+' || 
+            $event.key === '-' 
+              ? $event.preventDefault() 
+              : null
+          "
+        />
+
+
+        <div class="error" *ngIf="balanceRef.invalid && balanceRef.touched">
+          <div *ngIf="balanceRef.errors?.['required']">
+            Balance is required.
+          </div>
+          <div *ngIf="balanceRef.errors?.['min']">
+            Balance must be greater than 0.
+          </div>
+          <div *ngIf="balanceRef.errors?.['step']">
+            Maximum 2 decimal places allowed.
+          </div>
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="primary-btn"
+        [disabled]="formRef.invalid"
+        
+      >
+        Create Account
+      </button>
+
+    </form>
   </div>
 
-  <div>
-    <label for="balance">Initial Balance</label>
-    <input
-      id="balance"
-      #bal
-      type="number"
-      placeholder="1000"
-      (input)="balance = bal.valueAsNumber || 0"
-      min="1"
-      step="0.01"
-    />
-  </div>
-
-  <div>
-    <button type="submit">Create</button>
-  </div>
-</form>
+</div>

@@ -38,7 +38,7 @@ export class AppComponent {
   constructor(public router: Router) {}
 
   shouldShowNavbar(): boolean {
-    const excludedRoutes = ['/home', '/login', '/register'];
+    const excludedRoutes = ['/home', '/login', '/register', '/dashboardadmin', '/loginadmin', '/registeradmin'];
     return !excludedRoutes.includes(this.router.url);
   }
 

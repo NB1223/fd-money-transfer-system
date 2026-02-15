@@ -27,7 +27,7 @@ export class LoginComponent {
       next: (response) => {
         this.authService.storeSession(response.accountId, response.username, response.token);
         alert('Login successful');
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/dashboard'], { replaceUrl: true });
       },
       error: (err) => {
         console.error(err);
