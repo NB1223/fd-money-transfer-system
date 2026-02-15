@@ -1,0 +1,30 @@
+.admin-dashboard {
+  display: flex;
+  height: 100vh;
+  padding: 24px;
+  gap: 24px;
+  box-sizing: border-box;
+  background: linear-gradient(
+    135deg,
+    var(--navy-dark),
+    var(--navy-primary)
+  );
+}
+
+/* LEFT SIDE */
+.left-panel {
+  flex: 0 0 35%;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* RIGHT SIDE */
+.right-panel {
+  flex: 1;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}

@@ -1,12 +1,16 @@
-<div class="accounts-container">
-  <h2>All Accounts</h2>
+<div class="accounts-section">
 
-  <div *ngIf="accounts.length === 0" class="no-data">
-    <p>No accounts found</p>
+  <div class="accounts-header">
+    <h2 class="heading-font">All Accounts</h2>
   </div>
 
-  <div *ngIf="accounts.length > 0" class="accounts-list">
+  <div *ngIf="accounts.length === 0" class="no-data">
+    No accounts found
+  </div>
+
+  <div *ngIf="accounts.length > 0" class="table-wrapper">
     <table class="accounts-table">
+
       <thead>
         <tr>
           <th>Account ID</th>
@@ -14,23 +18,28 @@
           <th>Balance</th>
           <th>Status</th>
           <th>Last Updated</th>
-          <th>Username</th>
         </tr>
       </thead>
+
       <tbody>
         <tr *ngFor="let account of accounts">
-          <td>{{ account.accountId }}</td>
+          <td class="id-cell">{{ account.accountId + 600100100 }}</td>
           <td>{{ account.holderName }}</td>
-          <td class="balance">{{ account.balance | currency }}</td>
+          <td class="balance">
+            {{ account.balance | currency }}
+          </td>
           <td>
-            <span [ngClass]="'status-' + account.accountStatus.toLowerCase()">
+            <span
+              class="status-badge"
+              [ngClass]="'status-' + account.accountStatus.toLowerCase()">
               {{ account.accountStatus }}
             </span>
           </td>
-          <td>{{ account.lastUpdated | date: 'short' }}</td>
-          <td>{{ account.user?.username || 'N/A' }}</td>
+          <td>{{ account.lastUpdated | date:'short' }}</td>
         </tr>
       </tbody>
+
     </table>
   </div>
+
 </div>

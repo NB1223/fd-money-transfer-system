@@ -1,0 +1,101 @@
+.accounts-section {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  color: var(--soft-white);
+}
+
+/* Header */
+.accounts-header h2 {
+  margin-bottom: 20px;
+  color: var(--soft-white);
+}
+
+/* No data */
+.no-data {
+  padding: 30px;
+  color: var(--muted-gray);
+}
+
+/* Table Wrapper */
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: var(--card-radius);
+}
+
+/* Table */
+.accounts-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--navy-primary);
+  border-radius: var(--card-radius);
+  overflow: hidden;
+}
+
+/* Header */
+.accounts-table thead {
+  background-color: var(--navy-dark);
+}
+
+.accounts-table th {
+  padding: 14px 16px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 0.85rem;
+  letter-spacing: 0.05rem;
+  color: var(--soft-white);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Body */
+.accounts-table td {
+  padding: 14px 16px;
+  font-size: 0.9rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  color: var(--soft-white);
+}
+
+/* Row Hover */
+.accounts-table tbody tr:hover {
+  background-color: rgba(255,255,255,0.05);
+  transition: background 0.3s ease;
+}
+
+/* Account ID */
+.id-cell {
+  font-weight: 600;
+  color: #60a5fa;
+}
+
+/* Balance */
+.balance {
+  font-weight: 600;
+  color: #34d399;
+}
+
+/* Status Badge */
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Active */
+.status-active {
+  background-color: rgba(52, 211, 153, 0.2);
+  color: #34d399;
+}
+
+/* Inactive */
+.status-closed {
+  background-color: rgba(248, 113, 113, 0.2);
+  color: #f87171;
+}
+
+/* Suspended */
+.status-locked {
+  background-color: rgba(250, 204, 21, 0.2);
+  color: #facc15;
+}
