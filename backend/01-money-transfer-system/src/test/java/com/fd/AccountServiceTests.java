@@ -22,6 +22,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.fd.dto.AccountDTO;
 import com.fd.model.Account;
+import com.fd.model.AccountStatus;
 import com.fd.repository.IAccountRepository;
 import com.fd.service.AccountService;
 
@@ -71,10 +72,12 @@ public class AccountServiceTests {
     void debitSuccess() throws Exception {
 
         Account fromAccount = new Account("Nitika", 1000.0);
-
         Account toAccount = new Account("Neha", 1000.0);
 
         TransferRequest request = new TransferRequest(1L, 2L, 200.0, "idem-123");
+        
+        fromAccount.setAccountStatus(AccountStatus.ACTIVE);
+        toAccount.setAccountStatus(AccountStatus.ACTIVE);
 
         when(accountRepository.findById(1L)).thenReturn(Optional.of(fromAccount));
         when(accountRepository.findById(2L)).thenReturn(Optional.of(toAccount));
@@ -103,6 +106,9 @@ public class AccountServiceTests {
         Account toAccount = new Account("Neha", 500.0);
 
         TransferRequest request = new TransferRequest(1L, 2L, 300.0, "idem-456");
+        
+        fromAccount.setAccountStatus(AccountStatus.ACTIVE);
+        toAccount.setAccountStatus(AccountStatus.ACTIVE);
 
         when(accountRepository.findById(1L)).thenReturn(Optional.of(fromAccount));
         when(accountRepository.findById(2L)).thenReturn(Optional.of(toAccount));
