@@ -71,8 +71,12 @@ export class TransferComponent implements OnInit {
 
     const idempotencyKey = this.generateIdempotencyKey();
     this.transferService.performTransaction(this.accNo - 600100100, this.amount, idempotencyKey).subscribe({
-      next: () => {
-        alert('Transfer successful');
+      next: (response) => {
+        let message = 'Transfer successful'; // <-- DECLARE "message" HERE!
+        if (response?.pointsEarned && response.pointsEarned > 0) { // <-- ADD "?." TO BE SAFE!
+          message += ` 🎉 You earned ${response.pointsEarned} reward points!`;
+        }
+        alert(message);
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {

@@ -153,3 +153,36 @@
     transform: translateY(0);
   }
 }
+
+
+.points-section {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e2e8f0;
+  text-align: center;
+}
+
+.points-section h5 {
+  color: #64748b;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.points-section h2 {
+  color: #f59e0b;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.view-rewards-link {
+  color: #3b82f6;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.view-rewards-link:hover {
+  text-decoration: underline;
+}

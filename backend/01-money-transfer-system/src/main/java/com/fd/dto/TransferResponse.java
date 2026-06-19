@@ -11,13 +11,15 @@ public class TransferResponse {
     private long toAccountId;
     private double transferAmount;
     private LocalDateTime timestamp;
+    private Integer pointsEarned;
 
-    public TransferResponse(long transactionId, long fromAccountId, long toAccountId, double transferAmount, LocalDateTime time) {
+    public TransferResponse(long transactionId, long fromAccountId, long toAccountId, double transferAmount, LocalDateTime time, Integer pointsEarned) {
         this.transactionId = transactionId;
         this.fromAccountId = fromAccountId;
         this.toAccountId = toAccountId;
         this.transferAmount = transferAmount;
         this.timestamp = time; 
+        this.pointsEarned = pointsEarned;
     }
 
     public long getTransactionId() {
@@ -40,7 +42,11 @@ public class TransferResponse {
         return timestamp; 
     }   
 
-    public static TransferResponse fromEntityToDTO(TransactionLog transactionLog) {
+    public Integer getPointsEarned(){
+        return pointsEarned;
+    }
+
+    public static TransferResponse fromEntityToDTO(TransactionLog transactionLog, Integer pointsEarned) {
         if (transactionLog == null) {
             return null;
         }
@@ -50,8 +56,13 @@ public class TransferResponse {
         		transactionLog.getFromAccountId(),
         		transactionLog.getToAccountId(),
         		transactionLog.getAmount(),
-                transactionLog.getCreatedOn()
+                transactionLog.getCreatedOn(),
+                pointsEarned
 
         );
+    }
+
+    public static TransferResponse fromEntityToDTO(TransactionLog transactionLog){
+        return fromEntityToDTO(transactionLog, null);
     }
 }

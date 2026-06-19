@@ -1,0 +1,34 @@
+<div class="rewards-page">
+  <div class="rewards-container">
+    <h2>Your Rewards</h2>
+
+    <div class="total-points">
+      <h3>Total Points Earned: {{ totalPoints }}</h3>
+    </div>
+
+    <div *ngIf="rewards.length === 0" class="no-rewards">
+      <p>No rewards yet! Make a transaction over $100 to earn points!</p>
+    </div>
+
+    <div *ngIf="rewards.length > 0" class="table-wrapper">
+      <table class="rewards-table">
+        <thead>
+          <tr>
+            <th>Reward ID</th>
+            <th>Transaction ID</th>
+            <th>Points Earned</th>
+            <th>Date Earned</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let reward of rewards">
+            <td>{{ reward.rewardId + 600100100 }}</td>
+            <td>{{ reward.transactionId + 600100100 }}</td>
+            <td>{{ reward.pointsEarned }}</td>
+            <td>{{ reward.createdAt | date: 'medium' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -20,6 +20,8 @@ import com.fd.repository.ITransactionLogRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.fd.model.Reward; 
+
 @Service
 public class TransferService implements ITransferService {
 	
@@ -27,6 +29,8 @@ public class TransferService implements ITransferService {
 	ITransactionLogRepository transactionLogRepo;
 	@Autowired
 	IAccountRepository accountRepo;
+	@Autowired
+	IRewardService rewardService;
 
 	public List<TransactionLog> findAllTransactions(){
 		return transactionLogRepo.findAll();
@@ -84,7 +88,11 @@ public class TransferService implements ITransferService {
         transactionLog.setStatus(TransactionStatus.SUCCESS);
         transactionLogRepo.save(transactionLog);
 
-        return TransferResponse.fromEntityToDTO(transactionLog);
+		Reward reward = rewardService.calculateAndSaveReward(transactionLog, fromAccount.getAccountId());
+		Integer pointsEarned = (reward != null) ? reward.getPointsEarned() : null;
+
+        return TransferResponse.fromEntityToDTO(transactionLog, pointsEarned);
+
     } catch (Exception e) {
         TransactionLog failedLog = TransferRequest.fromDTOToEntity(transferRequest);
         failedLog.setStatus(TransactionStatus.FAILED);

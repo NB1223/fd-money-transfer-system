@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AccountService } from '../account.service';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
+import { RewardService } from '../reward.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,6 +21,7 @@ export class DashboardComponent {
   currentDate: string = '';
   currentTime: string = '';
   wealthTip: string = '';
+  totalPoints: number = 0;
 
   tips: string[] = [
     "Track your spending weekly to build smarter habits.",
@@ -28,7 +30,7 @@ export class DashboardComponent {
     "Emergency funds should cover 3–6 months of expenses."
   ];
 
-  constructor(private accountService: AccountService) {}
+  constructor(private accountService: AccountService, private rewardService: RewardService) {}
 
    ngOnInit(): void {
     console.log("DASHBOARD HIT");
@@ -36,6 +38,7 @@ export class DashboardComponent {
     this.elongatedId = Number(sessionStorage.getItem('elongatedId')); // use elongatedId key
     this.userName = sessionStorage.getItem('username');
     this.fetchAccountBalance(this.accountId);
+    this.loadTotalPoints(this.accountId);
     this.setGreeting();
     this.currentDate = new Date().toLocaleDateString();
     this.updateTime();
@@ -62,6 +65,16 @@ export class DashboardComponent {
     });
   }
 
+  loadTotalPoints(accountId: number): void{
+    this.rewardService.getRewardsByAccountId(accountId).subscribe({
+      next: (rewards) => {
+        this.totalPoints = rewards.reduce((sum, reward) => sum + reward.pointsEarned, 0);
+      },
+      error: (err) => {
+        console.error('Error loading rewards', err)
+      }
+    });
+  }
 
   setGreeting() {
     const hour = new Date().getHours();

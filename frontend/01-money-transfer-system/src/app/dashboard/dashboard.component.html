@@ -24,6 +24,12 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
           <h1>{{ accountBalance | currency }}</h1>
         </div>
 
+        <div class="points-section">
+          <h5><i class="fa-solid fa-star"></i> Total Reward Points</h5>
+          <h2>{{ totalPoints }}</h2>
+          <a routerLink="/rewards" class="view-rewards-link">View Rewards History</a>
+        </div>
+
         <div class="account-info">
           <span><i class="fa-solid fa-id-card"></i> Account ID:</span>
           <strong>{{ elongatedId }}</strong>
