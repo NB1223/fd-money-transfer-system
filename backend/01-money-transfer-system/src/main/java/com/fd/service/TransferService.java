@@ -77,11 +77,17 @@ public class TransferService implements ITransferService {
         fromAccount.debit(transferRequest.getAmount());
         toAccount.credit(transferRequest.getAmount());
         
+        // Calculate reward points: 1 point for every 100 transferred
+        int rewardPoints = (int) (transferRequest.getAmount() / 100);
+        fromAccount.addRewardPoints(rewardPoints);
+        
         accountRepo.save(fromAccount);
         accountRepo.save(toAccount);
         
         TransactionLog transactionLog = TransferRequest.fromDTOToEntity(transferRequest);
         transactionLog.setStatus(TransactionStatus.SUCCESS);
+        transactionLog.setToHolderName(toAccount.getHolderName());
+        transactionLog.setRewardPointsEarned(rewardPoints);
         transactionLogRepo.save(transactionLog);
 
         return TransferResponse.fromEntityToDTO(transactionLog);

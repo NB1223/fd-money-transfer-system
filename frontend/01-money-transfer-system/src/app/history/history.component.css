@@ -43,6 +43,56 @@ html, body {
   letter-spacing: 0.5px;
 }
 
+.search-bar-container {
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.search-input-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(77, 166, 255, 0.3);
+  transition: all 0.2s ease;
+}
+
+.search-input-wrapper:focus-within {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(77, 166, 255, 0.6);
+}
+
+.search-input-wrapper i {
+  color: rgba(77, 166, 255, 0.6);
+  margin-right: 10px;
+  font-size: 14px;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: white;
+  outline: none;
+  font-size: 14px;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.search-info {
+  font-size: 12px;
+  color: rgba(77, 166, 255, 0.8);
+  padding: 6px 12px;
+  background: rgba(77, 166, 255, 0.1);
+  border-radius: 6px;
+}
+
 
 .history-table {
   width: 100%;
@@ -143,4 +193,46 @@ html, body {
   text-align: center;
   opacity: 0.7;
   font-size: 16px;
+}
+
+.holder-name-cell {
+  color: rgba(77, 166, 255, 0.9);
+  font-weight: 500;
+}
+
+.remarks-cell {
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 200px;
+  word-break: break-word;
+}
+
+.no-remarks-text {
+  color: rgba(255, 255, 255, 0.4);
+  font-style: italic;
+}
+
+.reward-points-cell {
+  text-align: center;
+}
+
+.reward-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: linear-gradient(135deg, rgba(255, 193, 7, 0.2), rgba(255, 152, 0, 0.2));
+  color: #ffc107;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 13px;
+  border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.reward-badge i {
+  color: #ffd700;
+}
+
+.no-rewards-text {
+  color: rgba(255, 255, 255, 0.4);
+  font-style: italic;
 }

@@ -9,7 +9,7 @@ export class TransferService {
   private baseUrl = 'http://localhost:9090/api/v1/transfers';
   constructor(private http: HttpClient) {}
 
-  performTransaction(toAccountId: number, amount: number, idempotencyKey: string): Observable<any> {
+  performTransaction(toAccountId: number, amount: number, idempotencyKey: string, remarks: string = ''): Observable<any> {
       const token = sessionStorage.getItem('jwt'); // Retrieve the JWT token from sessionStorage
       const fromAccountId = sessionStorage.getItem('accountId'); // Retrieve the account ID from sessionStorage
       // Set the Authorization header with the Bearer token
@@ -22,7 +22,8 @@ export class TransferService {
         fromAccountId: Number(fromAccountId), // Convert the account ID back to the original value
         toAccountId,
         amount,
-        idempotencyKey
+        idempotencyKey,
+        remarks
       };
       console.log(`${this.baseUrl}`)
       // Make the HTTP POST request with the headers

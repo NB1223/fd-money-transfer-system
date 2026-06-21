@@ -30,6 +30,12 @@ public class TransactionLog {
 	private String idempotencyKey;
 	@Column(name="createdOn", nullable=false)
 	private LocalDateTime createdOn;
+	@Column(name="remarks", nullable=true)
+	private String remarks;
+	@Column(name="toHolderName", nullable=true)
+	private String toHolderName;
+	@Column(name="rewardPointsEarned", nullable=false)
+	private int rewardPointsEarned;
 	
 	public TransactionLog() {
 		super();
@@ -44,6 +50,9 @@ public class TransactionLog {
 		this.failureReason = "";
 		this.idempotencyKey = idempotencyKey;
 		this.createdOn = LocalDateTime.now();
+		this.remarks = "";
+		this.toHolderName = "";
+		this.rewardPointsEarned = 0;
 	}
 
 
@@ -92,6 +101,30 @@ public class TransactionLog {
 	}
 
 
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
+	public String getToHolderName() {
+		return toHolderName;
+	}
+
+	public void setToHolderName(String toHolderName) {
+		this.toHolderName = toHolderName;
+	}
+
+	public int getRewardPointsEarned() {
+		return rewardPointsEarned;
+	}
+
+	public void setRewardPointsEarned(int rewardPointsEarned) {
+		this.rewardPointsEarned = rewardPointsEarned;
+	}
 	public LocalDateTime getCreatedOn() {
 		return createdOn;
 	}

@@ -9,8 +9,23 @@
     </div>
   </div>
 
+  <div class="search-bar-container">
+    <div class="search-input-wrapper">
+      <i class="fa-solid fa-search"></i>
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Search by amount, remarks, holder name, or account..."
+        [(ngModel)]="searchText"
+        (input)="onSearchChange()"
+      />
+    </div>
+    <div class="search-info" *ngIf="searchText">
+      Found {{ filteredHistory.length }} result(s)
+    </div>
+  </div>
 
-  <div *ngIf="transferHistory.length > 0; else noRecords">
+  <div *ngIf="filteredHistory.length > 0; else noRecords">
 
     <table class="history-table">
       <thead>
@@ -19,11 +34,14 @@
           <th>Type</th>
           <th>Amount</th>
           <th>To / From</th>
+          <th>Holder Name</th>
+          <th>Remarks</th>
+          <th>Reward Points</th>
         </tr>
       </thead>
 
       <tbody>
-        <tr *ngFor="let transfer of transferHistory">
+        <tr *ngFor="let transfer of filteredHistory">
 
           <td>
             {{ transfer.timestamp | date:'medium' }}
@@ -63,7 +81,27 @@
             </span>
           </td>
 
-        </tr>
+          <td class="holder-name-cell">
+            {{ transfer.toHolderName || '-' }}
+          </td>
+
+          <td class="remarks-cell">
+            <span *ngIf="transfer.remarks && transfer.remarks.trim(); else noRemarks">
+              {{ transfer.remarks }}
+            </span>
+            <ng-template #noRemarks>
+              <span class="no-remarks-text">-</span>
+            </ng-template>
+          </td>
+
+          <td class="reward-points-cell">
+            <span *ngIf="transfer.rewardPointsEarned > 0; else noRewards" class="reward-badge">
+              <i class="fa-solid fa-star"></i> {{ transfer.rewardPointsEarned }}
+            </span>
+            <ng-template #noRewards>
+              <span class="no-rewards-text">-</span>
+            </ng-template>
+          </td>
       </tbody>
     </table>
 
@@ -91,7 +129,8 @@
 
   <ng-template #noRecords>
     <div class="no-records">
-      No transaction history available.
+      <span *ngIf="!searchText">No transaction history available.</span>
+      <span *ngIf="searchText">No transactions match your search.</span>
     </div>
   </ng-template>
 

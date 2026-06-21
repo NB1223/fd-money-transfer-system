@@ -53,6 +53,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/admin/account/all","/api/v1/admin/account/create")
                         .hasRole("ADMIN")
                         .requestMatchers("/api/v1/account/*/balance",
+                        		"/api/v1/account/*/holder-name",
                         		"/api/v1/account/*/transactions",
                         		"/api/v1/account/transactions/*",
                         		"/api/v1/account/1",

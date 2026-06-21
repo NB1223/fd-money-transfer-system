@@ -33,4 +33,14 @@ export class AccountService {
     console.log(`${this.baseUrl}/${accountId}/balance`);
     return this.http.get<{balance: any}>(`${this.baseUrl}/${accountId}/balance`,{headers});
   }
+
+  getHolderName(accountId: number): Observable<string> {
+    const token = sessionStorage.getItem('jwt');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+    return this.http.get<string>(`${this.baseUrl}/${accountId}/holder-name`, 
+      { headers, responseType: 'text' as 'json' });
+  }
 }

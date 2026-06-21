@@ -20,6 +20,8 @@ export class DashboardComponent {
   currentDate: string = '';
   currentTime: string = '';
   wealthTip: string = '';
+  recentTransaction: any = null;
+  recentTransactionLoading: boolean = false;
 
   tips: string[] = [
     "Track your spending weekly to build smarter habits.",
@@ -36,6 +38,7 @@ export class DashboardComponent {
     this.elongatedId = Number(sessionStorage.getItem('elongatedId')); // use elongatedId key
     this.userName = sessionStorage.getItem('username');
     this.fetchAccountBalance(this.accountId);
+    this.fetchRecentTransaction(this.accountId);
     this.setGreeting();
     this.currentDate = new Date().toLocaleDateString();
     this.updateTime();
@@ -74,6 +77,20 @@ export class DashboardComponent {
       this.greeting = 'Good Evening';
     }
   }
-
-
+  fetchRecentTransaction(accountId: number): void {
+    this.recentTransactionLoading = true;
+    this.accountService.getTransactionsByPage(accountId, 0, 1).subscribe({
+      next: (data) => {
+        if (data.content && data.content.length > 0) {
+          this.recentTransaction = data.content[0];
+        }
+        this.recentTransactionLoading = false;
+      },
+      error: (err) => {
+        console.error('Error fetching recent transaction:', err);
+        this.recentTransactionLoading = false;
+      }
+    });
+  
+}
 }

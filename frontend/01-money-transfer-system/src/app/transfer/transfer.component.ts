@@ -22,6 +22,8 @@ export class TransferComponent implements OnInit {
   remarks: string | null = '';
   balance: number = 0;
   username: string = sessionStorage.getItem('username') || 'User';
+  toAccountHolderName: string = '';
+  isLoadingHolderName: boolean = false;
 
   constructor(
     private transferService: TransferService,
@@ -47,6 +49,33 @@ export class TransferComponent implements OnInit {
     });
   }
 
+  onAccountNumberChange(): void {
+    if (this.accNo && this.accNo > 0) {
+      // Validate that the account number is in the correct format (600100100 + account_id)
+      if (this.accNo < 600100100) {
+        this.toAccountHolderName = 'Account not found';
+        this.isLoadingHolderName = false;
+        return;
+      }
+      this.isLoadingHolderName = true;
+      this.toAccountHolderName = '';
+      const actualAccountId = this.accNo - 600100100;
+      this.accountService.getHolderName(actualAccountId).subscribe({
+        next: (holderName) => {
+          this.toAccountHolderName = holderName;
+          this.isLoadingHolderName = false;
+        },
+        error: (err) => {
+          console.error('Error fetching holder name', err);
+          this.toAccountHolderName = 'Account not found';
+          this.isLoadingHolderName = false;
+        }
+      });
+    } else {
+      this.toAccountHolderName = '';
+    }
+  }
+
   private generateIdempotencyKey(): string {
     // Use crypto.randomUUID if available, otherwise fallback
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -62,15 +91,23 @@ export class TransferComponent implements OnInit {
       this.error = 'Enter a valid destination account and amount > 0';
       return;
     }
+    if (this.accNo < 600100100) {
+      this.error = 'Account number must be at least 600100101 (format: 600100100 + account ID)';
+      return;
+    }
     if (this.accNo === this.fromAccountId) {
       this.error = 'Cannot transfer to the same account';
+      return;
+    }
+    if (this.toAccountHolderName === 'Account not found') {
+      this.error = 'Please select a valid destination account';
       return;
     }
     const confirmed = confirm(`Confirm transfer of ${this.amount}$ to account ${this.accNo} from account ${this.elongatedId}?`);
     if (!confirmed) return;
 
     const idempotencyKey = this.generateIdempotencyKey();
-    this.transferService.performTransaction(this.accNo - 600100100, this.amount, idempotencyKey).subscribe({
+    this.transferService.performTransaction(this.accNo - 600100100, this.amount, idempotencyKey, this.remarks || '').subscribe({
       next: () => {
         alert('Transfer successful');
         this.router.navigate(['/dashboard']);

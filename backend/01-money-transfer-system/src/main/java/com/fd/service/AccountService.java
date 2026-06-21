@@ -58,6 +58,11 @@ public class AccountService implements IAccountService{
     public List<Account> findAllAccounts() {
 		return accountRepo.findAll();
     }
+
+    public Account findAccountById(long id) throws AccountNotFoundException {
+        return accountRepo.findById(id)
+                .orElseThrow(() -> new AccountNotFoundException("Account not found."));
+    }
     
     @Override
 	public Page<TransferResponse> getTransactionsByPage(long fromAccountID, Pageable pageable) {

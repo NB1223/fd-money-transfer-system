@@ -37,6 +37,9 @@ public class Account {
 	@Column(name="lastUpdated", nullable=false)
 	private LocalDateTime lastUpdated;
 
+	@Column(name="rewardPoints", nullable=false)
+	private int rewardPoints;
+
 	@JsonBackReference
 	@OneToOne
 	@JoinColumn(name = "user_id", nullable = true, unique = true)
@@ -54,7 +57,7 @@ public class Account {
 		this.accountStatus = AccountStatus.LOCKED;
 		this.version = 0;
 		this.lastUpdated = LocalDateTime.now();
-		
+		this.rewardPoints = 0;
 	}
 	
 	public long getAccountId() {
@@ -116,5 +119,17 @@ public class Account {
     public void setUser(UserEntity user) {
         this.user = user;
     }
+
+	public int getRewardPoints() {
+		return rewardPoints;
+	}
+
+	public void setRewardPoints(int rewardPoints) {
+		this.rewardPoints = rewardPoints;
+	}
+
+	public void addRewardPoints(int points) {
+		this.rewardPoints += points;
+	}
 	
 }

@@ -48,6 +48,13 @@ public class AccountController {
 	public double getBalanceById(@PathVariable long id) throws AccountNotFoundException {
 		return accountService.findBalanceById(id);
 	}
+
+	// http://localhost:9090/api/v1/account/1/holder-name
+	@GetMapping("account/{id}/holder-name")
+	public String getHolderNameById(@PathVariable long id) throws AccountNotFoundException {
+		Account account = accountService.findAccountById(id);
+		return account.getHolderName();
+	}
 	
 	// http://localhost:9090/api/v1/account/1/transactions
 	@GetMapping("account/{id}/transactions")
