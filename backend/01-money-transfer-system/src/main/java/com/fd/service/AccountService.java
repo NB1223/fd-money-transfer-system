@@ -66,10 +66,18 @@ public class AccountService implements IAccountService{
     
     @Override
 	public Page<TransferResponse> getTransactionsByPage(long fromAccountID, Pageable pageable) {
+		// sort and return transactions
 		return transactionLogRepo
 				.getTransactionsByAccountId(fromAccountID, pageable)
                 .map(TransferResponse::fromEntityToDTO);
 	}
+
+	public int findRewardPointsById(long id) throws AccountNotFoundException {
+		Account account = accountRepo.findById(id)
+				.orElseThrow(() -> new AccountNotFoundException("User Account not found."));
+		return account.getRewardPoints();
+	}
+
 
 
 }

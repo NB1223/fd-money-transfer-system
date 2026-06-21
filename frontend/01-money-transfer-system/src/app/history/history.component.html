@@ -95,7 +95,7 @@
           </td>
 
           <td class="reward-points-cell">
-            <span *ngIf="transfer.rewardPointsEarned > 0; else noRewards" class="reward-badge">
+            <span *ngIf="transfer.rewardPointsEarned > 0 && transfer.fromAccountId === currentAccountId; else noRewards" class="reward-badge">
               <i class="fa-solid fa-star"></i> {{ transfer.rewardPointsEarned }}
             </span>
             <ng-template #noRewards>

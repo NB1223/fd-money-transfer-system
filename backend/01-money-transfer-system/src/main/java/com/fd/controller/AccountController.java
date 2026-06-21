@@ -49,6 +49,12 @@ public class AccountController {
 		return accountService.findBalanceById(id);
 	}
 
+	// http://localhost:9090/api/v1/account/1/reward-points
+	@GetMapping("account/{id}/reward-points")
+	public int getRewardPointsById(@PathVariable long id) throws AccountNotFoundException {
+		return accountService.findRewardPointsById(id);
+	}
+
 	// http://localhost:9090/api/v1/account/1/holder-name
 	@GetMapping("account/{id}/holder-name")
 	public String getHolderNameById(@PathVariable long id) throws AccountNotFoundException {
