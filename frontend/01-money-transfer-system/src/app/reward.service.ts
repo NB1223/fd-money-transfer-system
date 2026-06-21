@@ -9,6 +9,13 @@ export interface RewardResponse {
   accountId: number;
   pointsEarned: number;
   createdAt: string; // LocalDateTime comes as a string from JSON
+  claimed: boolean;
+}
+
+export interface RewardSummary {
+  totalPoints: number;
+  claimedPoints: number;
+  claimablePoints: number;
 }
 
 @Injectable({
@@ -28,5 +35,32 @@ export class RewardService {
     });
 
     return this.http.get<RewardResponse[]>(`${this.baseUrl}/account/${accountId}`, { headers });
+  }
+
+  claimReward(rewardId: number, accountId: number): Observable<number> {
+    const token = sessionStorage.getItem('jwt');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+    return this.http.post<number>(`${this.baseUrl}/claim/${rewardId}/account/${accountId}`, null, { headers });
+  }
+
+  claimAllRewards(accountId: number): Observable<number> {
+    const token = sessionStorage.getItem('jwt');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+    return this.http.post<number>(`${this.baseUrl}/account/${accountId}/claimAll`, null, { headers });
+  }
+
+  getRewardsSummary(accountId: number): Observable<RewardSummary> {
+    const token = sessionStorage.getItem('jwt');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+    return this.http.get<RewardSummary>(`${this.baseUrl}/account/${accountId}/summary`, { headers });
   }
 }

@@ -59,7 +59,8 @@
             </span>
 
             <span *ngIf="transfer.toAccountId === currentAccountId">
-              From: {{ transfer.fromAccountId + 600100100 }}
+              From: <span *ngIf="transfer.fromAccountId === bankAccountId">Bank</span>
+              <span *ngIf="transfer.fromAccountId !== bankAccountId">{{ transfer.fromAccountId + 600100100 }}</span>
             </span>
           </td>
 

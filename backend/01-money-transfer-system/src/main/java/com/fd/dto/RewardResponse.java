@@ -10,6 +10,7 @@ public class RewardResponse {
     private Long accountId;
     private Integer pointsEarned;
     private LocalDateTime createdAt;
+    private boolean claimed;
 
     public RewardResponse(Long rewardId, Long transactionId, Long accountId, Integer pointsEarned, LocalDateTime createdAt){
         this.rewardId = rewardId;
@@ -17,6 +18,15 @@ public class RewardResponse {
         this.accountId = accountId;
         this.pointsEarned = pointsEarned;
         this.createdAt = createdAt;
+    }
+
+    public RewardResponse(Long rewardId, Long transactionId, Long accountId, Integer pointsEarned, LocalDateTime createdAt, boolean claimed){
+        this.rewardId = rewardId;
+        this.transactionId = transactionId;
+        this.accountId = accountId;
+        this.pointsEarned = pointsEarned;
+        this.createdAt = createdAt;
+        this.claimed = claimed;
     }
 
     public Long getRewardId() {
@@ -39,6 +49,10 @@ public class RewardResponse {
         return createdAt;
     }
 
+    public boolean isClaimed(){
+        return claimed;
+    }
+
     public static RewardResponse fromEntityToDTO(Reward reward){
         if (reward == null){
             return null;
@@ -46,6 +60,6 @@ public class RewardResponse {
 
         return new RewardResponse( reward.getRewardId(),
                     reward.getTransactionId(), reward.getAccountId(), 
-                    reward.getPointsEarned(), reward.getCreatedAt());
+                    reward.getPointsEarned(), reward.getCreatedAt(), reward.isClaimed());
     }
 }

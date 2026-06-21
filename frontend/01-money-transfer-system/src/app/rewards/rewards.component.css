@@ -1,86 +1,107 @@
 /* Match the EXACT gradient background from other pages! */
-.rewards-page {
-  height: 100vh;
-  box-sizing: border-box;
-  padding-top: 120px;
-  padding-left: 40px;
-  padding-right: 40px;
-  padding-bottom: 40px;
-  background: linear-gradient(
-      135deg,
-      var(--navy-dark),
-      var(--navy-primary)
-  );
-  overflow: hidden;
-}
+.rewards-page { box-sizing: border-box; }
 
 .rewards-container {
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
+  min-height: 100vh;
+  padding: 120px 80px 40px 80px;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, #0a192f, #112240);
   color: white;
 }
 
 .rewards-container h2 {
-  font-size: 2.2rem;
-  margin-bottom: 40px;
+  margin: 0 0 20px 0;
+  font-size: 28px;
+  font-weight: 600;
 }
 
 .total-points {
-  background: white;
+  background: rgba(255,255,255,0.05);
   padding: 30px;
-  border-radius: 18px;
-  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.25);
-  color: #1f2937;
-  text-align: center;
+  border-radius: 14px;
+  color: white;
+  text-align: left;
   margin-bottom: 2rem;
-  animation: fadeSlideUp 0.6s ease forwards;
 }
 
-.total-points h3 {
-  font-size: 1.5rem;
-  color: var(--navy-primary);
-}
+.total-points h3 { font-size: 20px; color: #cbd5e1 }
 
-.no-rewards {
-  text-align: center;
-  padding: 3rem;
+.points-breakdown { display:flex; gap:1rem; justify-content:flex-start; margin-top:1rem }
+.points-breakdown .box { background: rgba(255,255,255,0.08); padding:12px 20px; border-radius:8px; min-width:140px; text-align:center; color: #cbd5e1 }
+.points-breakdown .box .label { font-size:0.9rem; color:#9aa6b2 }
+.points-breakdown .box .value { font-size:1.25rem; font-weight:700; margin-top:6px }
+.points-breakdown .box.claimed .value { color:#9aa6b2 }
+.points-breakdown .box.claimable .value { color:#34d399 }
+
+.claim-actions { margin-top: 12px }
+.claim-actions button {
+  background: rgba(255,255,255,0.08);
   color: #cbd5e1;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
 }
+.claim-actions button:disabled { opacity: 0.5; cursor: not-allowed }
 
-.table-wrapper {
-  overflow-x: auto;
-}
+.no-rewards { text-align:center; padding:3rem; color:#cbd5e1 }
+
+.table-wrapper { overflow-x:auto }
 
 .rewards-table {
   width: 100%;
   border-collapse: collapse;
-  background-color: white;
-  border-radius: 18px;
-  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.25);
-  animation: fadeSlideUp 0.6s ease forwards;
+  background: rgba(255,255,255,0.03);
+  border-radius: 14px;
+  overflow: hidden;
 }
 
-.rewards-table th,
-.rewards-table td {
-  padding: 1rem;
-  text-align: left;
-  border-bottom: 1px solid #e2e8f0;
-  color: #1f2937;
+.rewards-table thead { background: rgba(255,255,255,0.06) }
+
+.rewards-table th { text-align:left; padding:16px; font-weight:600; font-size:14px; letter-spacing:0.5px }
+
+.rewards-table td { padding:16px; font-size:14px; border-bottom:1px solid rgba(255,255,255,0.02); color:#cbd5e1 }
+
+.rewards-table tbody tr:hover { background: rgba(255,255,255,0.02) }
+
+.points-col { text-align:right; font-weight:600 }
+.credit { color: #34d399; font-weight: 600 }
+.debit { color: #9aa6b2; font-weight: 600 }
+.scratch-modal { position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); display:flex; align-items:center; justify-content:center }
+.scratch-content { background:#fff; padding:20px; border-radius:8px; width:320px; text-align:center }
+.scratch-area { height:120px; display:flex; align-items:center; justify-content:center }
+.cover { background:#ccc; padding:20px; border-radius:6px; cursor:pointer }
+.amount { font-size:24px; font-weight:bold }
+
+.rewards-table th { background-color: rgba(255,255,255,0.06) }
+
+.pagination-controls {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
 
-.rewards-table th {
-  background-color: #f1f5f9;
-  font-weight: 600;
+.pagination-controls button {
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: rgba(255,255,255,0.06);
+  color: white;
+  transition: all 0.2s ease;
 }
 
-@keyframes fadeSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(25px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.pagination-controls button:hover:not(:disabled) {
+  background: rgba(255,255,255,0.12);
+  transform: translateY(-2px);
 }
+
+.pagination-controls button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.page-info { font-size: 14px; opacity: 0.8; color: #cbd5e1 }

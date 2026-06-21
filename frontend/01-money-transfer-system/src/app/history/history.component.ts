@@ -17,6 +17,7 @@ export class HistoryComponent {
   totalPages: number = 0;
   currentAccountId: number = Number(sessionStorage.getItem('accountId'));
   elongatedId: number = Number(sessionStorage.getItem('elongatedId'));
+  bankAccountId: number = 0; // matches backend reward credit from bank
   // userName: string = "John Does";
   userName: string = sessionStorage.getItem('username') || '';
 

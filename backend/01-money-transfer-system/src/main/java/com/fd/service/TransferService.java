@@ -56,6 +56,15 @@ public class TransferService implements ITransferService {
 		if (transferRequest.getFromAccountId() == transferRequest.getToAccountId()){
 			throw new SelfTransferException("Self transfer not allowed.");
 		}
+
+		// Verify sender and receiver are different users (not just different account IDs)
+		if (fromAccount.getUser() != null && toAccount.getUser() != null) {
+			Long fromUserId = fromAccount.getUser().getId();
+			Long toUserId = toAccount.getUser().getId();
+			if (fromUserId != null && fromUserId.equals(toUserId)) {
+				throw new SelfTransferException("Transfers between accounts owned by the same user are not allowed.");
+			}
+		}
 		
 		if(!toAccount.isActive() || !fromAccount.isActive()) {
 			if(toAccount.isActive()==false) {

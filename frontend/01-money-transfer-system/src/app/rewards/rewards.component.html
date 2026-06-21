@@ -4,6 +4,19 @@
 
     <div class="total-points">
       <h3>Total Points Earned: {{ totalPoints }}</h3>
+      <div class="claim-actions">
+        <button [disabled]="claimablePoints <= 0" (click)="claimAll()">Claim All ({{ claimablePoints }} pts)</button>
+      </div>
+      <div class="points-breakdown">
+        <div class="box claimed">
+          <div class="label">Claimed</div>
+          <div class="value">{{ claimedPoints }}</div>
+        </div>
+        <div class="box claimable">
+          <div class="label">Claimable</div>
+          <div class="value">{{ claimablePoints }}</div>
+        </div>
+      </div>
     </div>
 
     <div *ngIf="rewards.length === 0" class="no-rewards">
@@ -14,21 +27,45 @@
       <table class="rewards-table">
         <thead>
           <tr>
-            <th>Reward ID</th>
-            <th>Transaction ID</th>
-            <th>Points Earned</th>
             <th>Date Earned</th>
+            <th>Status</th>
+            <th>Points Earned</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let reward of rewards">
-            <td>{{ reward.rewardId + 600100100 }}</td>
-            <td>{{ reward.transactionId + 600100100 }}</td>
-            <td>{{ reward.pointsEarned }}</td>
+          <tr *ngFor="let reward of displayedRewards">
             <td>{{ reward.createdAt | date: 'medium' }}</td>
+            <td>
+              <span *ngIf="reward.claimed" class="debit">Claimed</span>
+              <span *ngIf="!reward.claimed" class="credit">Claimable</span>
+            </td>
+            <td class="points-col">{{ reward.pointsEarned }}</td>
           </tr>
         </tbody>
       </table>
+      <div class="pagination-controls">
+
+        <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 0">Previous</button>
+
+        <div class="page-info">Page {{ currentPage + 1 }} of {{ totalPages }}</div>
+
+        <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage + 1 >= totalPages">Next</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Scratch modal -->
+<div class="scratch-modal" *ngIf="showScratchModal">
+  <div class="scratch-content">
+    <h3>Scratch Card</h3>
+    <div class="scratch-area">
+      <div *ngIf="!revealing" class="cover" (click)="revealScratch()">Scratch to reveal</div>
+      <div *ngIf="revealing" class="amount">Congrats🎉!!You won {{ scratchedAmount | currency }}</div>
+    </div>
+    <div class="modal-actions">
+      <button (click)="closeModal()">Close</button>
     </div>
   </div>
 </div>

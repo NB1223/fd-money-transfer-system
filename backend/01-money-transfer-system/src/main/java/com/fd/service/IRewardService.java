@@ -15,4 +15,10 @@ public interface IRewardService {
 
     //to get all rewards for a specific account
     List<Reward> getRewardsByAccountId(Long accountId);
+
+    //claim a reward and credit account balance; returns cashback amount
+    Double claimReward(Long rewardId, Long accountId);
+
+    //claim all unclaimed rewards for account and credit cashback; returns cashback amount
+    Double claimAllRewards(Long accountId);
 }
