@@ -43,4 +43,13 @@ export class AccountService {
     return this.http.get<string>(`${this.baseUrl}/${accountId}/holder-name`, 
       { headers, responseType: 'text' as 'json' });
   }
+
+  getRewardPoints(accountId: number): Observable<number> {
+    const token = sessionStorage.getItem('jwt');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+    return this.http.get<number>(`${this.baseUrl}/${accountId}/reward-points`, { headers });
+  }
 }

@@ -31,15 +31,75 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
       </div>
 
-      <div class="chart-card">
-
-        <h4>
-          <i class="fa-solid fa-chart-pie"></i>
-          Income vs Expense
-        </h4>
-
-        <canvas id="incomeExpenseChart"></canvas>
-
+      <!-- Reward Milestones Card -->
+      <div class="reward-card">
+ 
+        <div class="reward-card-header">
+          <div class="reward-title">
+            <i class="fa-solid fa-star"></i>
+            Reward Milestones
+          </div>
+          <span class="points-badge">{{ rewardPoints }} pts</span>
+        </div>
+ 
+        <!-- Progress bar -->
+        <div class="milestone-progress-wrap">
+          <div class="milestone-track">
+            <div class="milestone-fill" [style.width.%]="progressPercent"></div>
+            <div
+              *ngFor="let m of milestones"
+              class="milestone-marker"
+              [class.reached]="rewardPoints >= m.points"
+              [style.left.%]="(m.points / 500) * 100">
+            </div>
+          </div>
+          <div class="milestone-labels">
+            <span *ngFor="let m of milestones" [style.left.%]="(m.points / 500) * 100">
+              {{ m.points }}
+            </span>
+          </div>
+        </div>
+ 
+        <!-- Milestone rows -->
+        <div class="milestone-list">
+          <div
+            *ngFor="let m of milestones"
+            class="milestone-row"
+            [class.unlocked]="rewardPoints >= m.points"
+            [class.locked]="rewardPoints < m.points">
+ 
+            <div class="milestone-left">
+              <span class="milestone-icon {{ m.tier }}">
+                <i class="fa-solid"
+                   [class.fa-medal]="m.tier === 'bronze'"
+                   [class.fa-award]="m.tier === 'silver'"
+                   [class.fa-trophy]="m.tier === 'gold'">
+                </i>
+              </span>
+              <span class="milestone-name">{{ m.label }}</span>
+            </div>
+ 
+            <!-- Unlocked: show copyable code -->
+            <div class="milestone-right" *ngIf="rewardPoints >= m.points">
+              <span class="coupon-code">{{ m.code }}</span>
+              <button
+                class="copy-btn"
+                (click)="copyCode(m.code)"
+                [class.copied]="copiedCode === m.code">
+                <i class="fa-solid" [class.fa-check]="copiedCode === m.code" [class.fa-copy]="copiedCode !== m.code"></i>
+                {{ copiedCode === m.code ? 'Copied!' : 'Copy' }}
+              </button>
+            </div>
+ 
+            <!-- Locked: show how far away -->
+            <div class="milestone-right locked-info" *ngIf="rewardPoints < m.points">
+              <i class="fa-solid fa-lock"></i>
+              <span>{{ m.points - rewardPoints }} pts away</span>
+            </div>
+ 
+          </div>
+        </div>
+ 
       </div>
 
       

@@ -3,10 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 import { AccountService } from '../account.service';
 
-import { Chart, registerables } from 'chart.js';
-
-Chart.register(...registerables);
-
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -41,15 +37,26 @@ export class DashboardComponent {
 
   partnerFrequency: { [key: string]: number } = {};
 
-  incomeExpenseChart: Chart | null = null;
-  partnerChart: Chart | null = null;
-
   tips: string[] = [
     'Track your spending weekly to build smarter habits.',
     'Aim to save at least 20% of your monthly income.',
     'Diversify investments to reduce financial risk.',
     'Emergency funds should cover 3–6 months of expenses.'
   ];
+
+  rewardPoints: number = 0;
+  copiedCode: string = '';
+ 
+  milestones = [
+    { points: 150, code: 'MTS-BRZ-K9X4', label: 'Bronze',  tier: 'bronze' },
+    { points: 300, code: 'MTS-SLV-TM2P', label: 'Silver',  tier: 'silver' },
+    { points: 500, code: 'MTS-GLD-ZQ7R', label: 'Gold',    tier: 'gold'   },
+  ];
+ 
+  get progressPercent(): number {
+    const maxPoints = this.milestones[this.milestones.length - 1].points;
+    return Math.min((this.rewardPoints / maxPoints) * 100, 100);
+  }
 
   constructor(private accountService: AccountService) {}
 
@@ -63,7 +70,8 @@ export class DashboardComponent {
 
     this.fetchAccountBalance(this.accountId);
     this.fetchRecentTransaction(this.accountId);
-    this.fetchTransactionStats(this.accountId);
+    this.fetchRewardPoints(this.accountId);
+
 
     this.setGreeting();
 
@@ -79,6 +87,20 @@ export class DashboardComponent {
   updateTime(): void {
     const now = new Date();
     this.currentTime = now.toLocaleTimeString();
+  }
+
+  fetchRewardPoints(accountId: number): void {
+    this.accountService.getRewardPoints(accountId).subscribe({
+      next:  (data) => { this.rewardPoints = Number(data); },
+      error: (err)  => { console.error('Error fetching reward points:', err); }
+    });
+  }
+ 
+  copyCode(code: string): void {
+    navigator.clipboard.writeText(code).then(() => {
+      this.copiedCode = code;
+      setTimeout(() => { this.copiedCode = ''; }, 2000);
+    });
   }
 
   setGreeting(): void {
@@ -153,181 +175,4 @@ export class DashboardComponent {
       });
   }
 
-  fetchTransactionStats(accountId: number): void {
-
-    this.accountService
-      .getTransactionsByPage(accountId, 0, 1000)
-      .subscribe({
-
-        next: (data) => {
-
-          this.incomeTotal = 0;
-          this.expenseTotal = 0;
-
-          this.partnerFrequency = {};
-
-          data.content.forEach((tx: any) => {
-
-            // Income
-            if (tx.toAccountId === accountId) {
-
-              this.incomeTotal +=
-                tx.transferAmount;
-
-              const partner =
-                tx.fromHolderName ||
-                `Account ${tx.fromAccountId}`;
-
-              this.partnerFrequency[partner] =
-                (this.partnerFrequency[partner] || 0) + 1;
-            }
-
-            // Expense
-            if (tx.fromAccountId === accountId) {
-
-              this.expenseTotal +=
-                tx.transferAmount;
-
-              const partner =
-                tx.toHolderName ||
-                `Account ${tx.toAccountId}`;
-
-              this.partnerFrequency[partner] =
-                (this.partnerFrequency[partner] || 0) + 1;
-            }
-          });
-
-          setTimeout(() => {
-
-            this.createIncomeExpenseChart();
-            this.createPartnerChart();
-
-          }, 100);
-        },
-
-        error: (err) => {
-
-          console.error(
-            'Error loading transaction stats',
-            err
-          );
-        }
-      });
-  }
-
-  createIncomeExpenseChart(): void {
-
-    if (this.incomeExpenseChart) {
-      this.incomeExpenseChart.destroy();
-    }
-
-    this.incomeExpenseChart = new Chart(
-      'incomeExpenseChart',
-      {
-        type: 'doughnut',
-
-        data: {
-
-          labels: [
-            'Income',
-            'Expense'
-          ],
-
-          datasets: [
-            {
-              data: [
-                this.incomeTotal,
-                this.expenseTotal
-              ],
-
-              backgroundColor: [
-                '#10b981',
-                '#ef4444'
-              ],
-
-              borderWidth: 0
-            }
-          ]
-        },
-
-        options: {
-
-          responsive: true,
-
-          maintainAspectRatio: false,
-
-          cutout: '65%',
-
-          plugins: {
-
-            legend: {
-              position: 'bottom'
-            }
-          }
-        }
-      }
-    );
-  }
-
-  createPartnerChart(): void {
-
-    if (this.partnerChart) {
-      this.partnerChart.destroy();
-    }
-
-    const sortedPartners =
-      Object.entries(this.partnerFrequency)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 5);
-
-    this.partnerChart = new Chart(
-      'partnerChart',
-      {
-        type: 'doughnut',
-
-        data: {
-
-          labels:
-            sortedPartners.map(
-              partner => partner[0]
-            ),
-
-          datasets: [
-            {
-              data:
-                sortedPartners.map(
-                  partner => partner[1]
-                ),
-
-              backgroundColor: [
-                '#2563eb',
-                '#8b5cf6',
-                '#06b6d4',
-                '#f59e0b',
-                '#ec4899'
-              ],
-
-              borderWidth: 0
-            }
-          ]
-        },
-
-        options: {
-
-          responsive: true,
-
-          maintainAspectRatio: false,
-
-          cutout: '65%',
-
-          plugins: {
-
-            legend: {
-              position: 'bottom'
-            }
-          }
-        }
-      }
-    );
-  }
 }

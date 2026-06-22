@@ -1,18 +1,11 @@
 .dashboard {
   min-height: 100vh;
   box-sizing: border-box;
-
   padding-top: 120px;
   padding-left: 40px;
   padding-right: 40px;
   padding-bottom: 40px;
-
-  background: linear-gradient(
-    135deg,
-    var(--navy-dark),
-    var(--navy-primary)
-  );
-
+  background: linear-gradient(135deg, var(--navy-dark), var(--navy-primary));
   overflow-x: hidden;
   overflow-y: auto;
 }
@@ -43,42 +36,30 @@
   margin-top: 2px;
 }
 
-.wealth-tip p {
-  margin: 0;
-}
+.wealth-tip p { margin: 0; }
 
 .dashboard-container {
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
   gap: 40px;
   align-items: start;
 }
 
-.dashboard-left {
-  color: white;
-}
+.dashboard-left { color: white; }
 
-.welcome-section {
-  margin-bottom: 30px;
-}
+.welcome-section { margin-bottom: 30px; }
 
 .welcome-section h2 {
   font-size: clamp(1.8rem, 4vw, 2.6rem);
   margin: 0 0 10px 0;
 }
 
-.welcome-section p {
-  margin: 0;
-}
+.welcome-section p { margin: 0; }
 
-.muted {
-  color: #cbd5e1;
-  font-size: 0.95rem;
-}
+.muted { color: #cbd5e1; font-size: 0.95rem; }
 
 .account-card {
   background: white;
@@ -89,10 +70,6 @@
   width: 100%;
   max-width: 550px;
   animation: fadeSlideUp 0.6s ease forwards;
-}
-
-.img {
-  margin-top: 300px;
 }
 
 .balance-section h5 {
@@ -121,10 +98,205 @@
   flex-wrap: wrap;
 }
 
-.account-info i {
-  margin-right: 6px;
-  color: var(--navy-primary);
+.account-info i { margin-right: 6px; color: var(--navy-primary); }
+
+/* ── Reward Milestone Card ─────────────────────────────────────── */
+
+.reward-card {
+  background: white;
+  padding: 28px 32px 24px;
+  border-radius: 20px;
+  margin-top: 25px;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.25);
+  color: #1f2937;
+  width: 100%;
+  max-width: 550px;
+  animation: fadeSlideUp 0.6s ease 0.1s both;
 }
+
+.reward-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.reward-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--navy-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.reward-title i { color: #fbbf24; }
+
+.points-badge {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.02em;
+}
+
+/* Progress bar */
+.milestone-progress-wrap {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.milestone-track {
+  position: relative;
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 99px;
+  margin-bottom: 10px;
+}
+
+.milestone-fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #f59e0b, #fbbf24);
+  border-radius: 99px;
+  transition: width 0.6s ease;
+}
+
+.milestone-marker {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #d1d5db;
+  border: 2px solid white;
+  transition: background 0.3s ease;
+  z-index: 1;
+}
+
+.milestone-marker.reached { background: #f59e0b; }
+
+.milestone-labels {
+  position: relative;
+  height: 16px;
+}
+
+.milestone-labels span {
+  position: absolute;
+  transform: translateX(-50%);
+  font-size: 0.72rem;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+/* Milestone rows */
+.milestone-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.milestone-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  transition: background 0.2s ease;
+}
+
+.milestone-row.unlocked { background: #f0fdf4; }
+.milestone-row.locked   { background: #f9fafb; }
+
+.milestone-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.milestone-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.milestone-icon.bronze { background: #fef3c7; color: #cd7f32; }
+.milestone-icon.silver { background: #f1f5f9; color: #64748b; }
+.milestone-icon.gold   { background: #fef9c3; color: #ca8a04; }
+
+.locked .milestone-icon.bronze,
+.locked .milestone-icon.silver,
+.locked .milestone-icon.gold {
+  filter: grayscale(0.6);
+  opacity: 0.5;
+}
+
+.milestone-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.locked .milestone-name { color: #9ca3af; }
+
+.milestone-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.coupon-code {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #059669;
+  background: #d1fae5;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.copy-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.copy-btn:hover { background: #d1d5db; }
+
+.copy-btn.copied {
+  background: #d1fae5;
+  color: #059669;
+}
+
+.locked-info {
+  font-size: 0.82rem;
+  color: #9ca3af;
+  gap: 5px;
+}
+
+.locked-info i { font-size: 0.75rem; }
+
+/* ── Recent Transaction Card ───────────────────────────────────── */
 
 .recent-transaction-card {
   background: white;
@@ -168,11 +340,7 @@
   font-size: 0.95rem;
 }
 
-.detail-label {
-  color: #6b7280;
-  font-weight: 500;
-  flex-shrink: 0;
-}
+.detail-label { color: #6b7280; font-weight: 500; flex-shrink: 0; }
 
 .detail-value {
   color: #1f2937;
@@ -183,21 +351,10 @@
   gap: 6px;
 }
 
-.detail-value.debit {
-  color: #ef4444;
-}
-
-.detail-value.credit {
-  color: #10b981;
-}
-
-.debit-amount {
-  color: #ef4444 !important;
-}
-
-.credit-amount {
-  color: #10b981 !important;
-}
+.detail-value.debit  { color: #ef4444; }
+.detail-value.credit { color: #10b981; }
+.debit-amount        { color: #ef4444 !important; }
+.credit-amount       { color: #10b981 !important; }
 
 .reward-points {
   background: linear-gradient(135deg, #fbbf24, #f59e0b);
@@ -215,10 +372,7 @@
   padding: 20px 0;
 }
 
-.dashboard-right {
-  display: flex;
-  justify-content: flex-start;
-}
+.dashboard-right { display: flex; justify-content: flex-start; }
 
 .dashboard-right img {
   width: 100%;
@@ -228,83 +382,7 @@
   margin-top: 75px;
 }
 
-@media (max-width: 1200px) {
-  .dashboard-container {
-    gap: 30px;
-  }
-
-  .account-card,
-  .recent-transaction-card {
-    max-width: 100%;
-  }
-}
-
-@media (max-width: 992px) {
-  .dashboard {
-    padding-top: 100px;
-    padding-left: 24px;
-    padding-right: 24px;
-  }
-
-  .dashboard-container {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
-
-  .dashboard-left {
-    order: 1;
-  }
-
-  .dashboard-right {
-    order: 2;
-    justify-content: center;
-  }
-
-  .account-card,
-  .recent-transaction-card {
-    max-width: 100%;
-  }
-}
-
-@media (max-width: 768px) {
-  .dashboard {
-    padding-top: 90px;
-    padding-left: 16px;
-    padding-right: 16px;
-    padding-bottom: 24px;
-  }
-
-  .account-card,
-  .recent-transaction-card {
-    padding: 24px;
-  }
-
-  .detail-row {
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .detail-value {
-    text-align: left;
-  }
-
-  .account-info {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
-
-@keyframes fadeSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(25px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+/* ── Chart Card ─────────────────────────────────────────────────── */
 
 .chart-card {
   background: white;
@@ -316,11 +394,50 @@
   max-width: 550px;
 }
 
-.chart-card h4 {
-  margin-bottom: 15px;
-  color: var(--navy-primary);
+.chart-card h4 { margin-bottom: 15px; color: var(--navy-primary); }
+.chart-card canvas { max-height: 260px; }
+
+/* ── Responsive ─────────────────────────────────────────────────── */
+
+@media (max-width: 1200px) {
+  .dashboard-container { gap: 30px; }
+  .account-card,
+  .reward-card,
+  .recent-transaction-card { max-width: 100%; }
 }
 
-.chart-card canvas {
-  max-height: 260px;
+@media (max-width: 992px) {
+  .dashboard {
+    padding-top: 100px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .dashboard-container { grid-template-columns: 1fr; gap: 30px; }
+  .dashboard-left  { order: 1; }
+  .dashboard-right { order: 2; justify-content: center; }
+  .account-card,
+  .reward-card,
+  .recent-transaction-card { max-width: 100%; }
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    padding-top: 90px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: 24px;
+  }
+  .account-card,
+  .reward-card,
+  .recent-transaction-card { padding: 24px; }
+  .detail-row { flex-direction: column; gap: 6px; }
+  .detail-value { text-align: left; }
+  .account-info { flex-direction: column; align-items: flex-start; }
+  .milestone-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .reward-card { padding: 20px; }
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(25px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
